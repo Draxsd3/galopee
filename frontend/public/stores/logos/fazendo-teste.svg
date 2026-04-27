@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">FazendoTeste</title>
+  <desc id="desc">Logo verde e roxo com monograma FT.</desc>
+  <defs>
+    <linearGradient id="bg" x1="24" x2="216" y1="24" y2="216" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6d28d9"/>
+      <stop offset=".55" stop-color="#15803d"/>
+      <stop offset="1" stop-color="#0f2d1a"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" rx="52" fill="url(#bg)"/>
+  <path d="M58 154c28-42 67-63 117-62" fill="none" stroke="#f3c85b" stroke-width="8" stroke-linecap="round"/>
+  <path d="M151 65c22 6 37 22 43 47-27 1-47-9-59-32 4-8 9-13 16-15Z" fill="#a7d95d"/>
+  <text x="120" y="151" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="800" fill="#fff">FT</text>
+</svg>

@@ -1,34 +1,38 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Flame, Tractor } from 'lucide-react';
+import { ArrowRight, Check, Flame, MapPin, Package, Star, Store, UserPlus } from 'lucide-react';
 import api from '../services/api';
 import ProductCard from '../components/ProductCard';
-import SellerCard from '../components/SellerCard';
 import QuickActionCard from '../components/QuickActionCard';
 import PromoBanner from '../components/PromoBanner';
 
 const heroBackgrounds = [
     {
-        image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=80',
-        alt: 'Plantacao em larga escala ao por do sol',
+        image: '/promos/custom/hero-slide-1.png',
+        alt: 'Hero promocional do marketplace agro com smartphone e fertilizante',
     },
     {
-        image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1800&q=80',
-        alt: 'Trator trabalhando no campo',
+        image: '/promos/custom/hero-slide-2.png',
+        alt: 'Hero promocional com tablet, fertilizante foliar e beneficios do marketplace',
     },
     {
-        image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1800&q=80',
-        alt: 'Campo de soja verde',
+        image: '/promos/custom/hero-slide-3.png',
+        alt: 'Hero promocional com destaque para oportunidades no agro',
     },
     {
-        image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=1800&q=80',
-        alt: 'Colheita de graos',
-    },
-    {
-        image: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=1800&q=80',
-        alt: 'Plantacao verde com horizonte',
+        image: '/promos/custom/hero-slide-4.png',
+        alt: 'Hero promocional com condicoes de pagamento e marketplace agro',
     },
 ];
+
+function sellerInitials(name = '?') {
+    return name
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((word) => word[0]?.toUpperCase())
+        .join('');
+}
 
 export default function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -82,11 +86,9 @@ export default function Home() {
         };
     }, [search, category, isFiltering]);
 
-    // Trunca a lista para caber perfeitamente no grid de 4 colunas (sem espaço vazio)
     const toGridFit = (list) => list.slice(0, list.length - (list.length % 4));
     const gridProducts = toGridFit(products);
     const gridFeatured = toGridFit(featured);
-    // Ponto de inserção dos banners promocionais: metade arredondada para múltiplo de 4
     const promoSplit = Math.floor(gridProducts.length / 8) * 4;
     const productsBeforePromo = gridProducts.slice(0, promoSplit);
     const productsAfterPromo = gridProducts.slice(promoSplit);
@@ -109,7 +111,7 @@ export default function Home() {
         <div className="pb-16">
             <section className="container-page pt-5">
                 <div className="overflow-hidden rounded-[30px] bg-[#ece9e4] shadow-card">
-                    <div className="relative min-h-[380px] overflow-hidden">
+                    <div className="relative aspect-[16/9] min-h-[280px] overflow-hidden md:aspect-[16/8] lg:min-h-[380px]">
                         {heroBackgrounds.map((bg, index) => (
                             <img
                                 key={bg.image}
@@ -119,55 +121,37 @@ export default function Home() {
                                 style={{ transitionProperty: 'opacity, transform' }}
                             />
                         ))}
-                        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/75 via-brand-900/55 to-brand-900/35" />
 
-                        <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 lg:left-10 lg:translate-x-0">
-                            {heroBackgrounds.map((bg, index) => (
+                        <div className="absolute bottom-4 left-4 z-20 flex flex-col items-start gap-3 md:bottom-5 lg:left-10">
+                            <div className="flex items-center gap-2">
                                 <button
-                                    key={bg.image}
-                                    onClick={() => setBgIndex(index)}
-                                    className={`h-1.5 rounded-full transition-all duration-500 ${index === bgIndex ? 'w-10 bg-[#f1c56a]' : 'w-4 bg-white/40 hover:bg-white/70'}`}
-                                    aria-label={`Ir para imagem ${index + 1}`}
-                                />
-                            ))}
-                        </div>
+                                    onClick={() => setParam('category', 'Todos')}
+                                    className="inline-flex items-center gap-2 rounded-full bg-accent-500 px-4 py-2 text-xs font-bold text-white shadow-lg transition hover:bg-accent-600 md:px-5 md:py-2.5 md:text-sm"
+                                >
+                                    Explorar<span className="hidden sm:inline"> catalogo</span>
+                                    <ArrowRight className="h-4 w-4" />
+                                </button>
+                                <Link
+                                    to="/register"
+                                    className="inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/15 px-4 py-2 text-xs font-bold text-white shadow-lg backdrop-blur-sm transition hover:bg-white/25 md:px-5 md:py-2.5 md:text-sm"
+                                >
+                                    <UserPlus className="h-4 w-4" />
+                                    <span className="hidden sm:inline">Quero vender</span>
+                                </Link>
+                            </div>
 
-                        <div className="relative z-10 flex min-h-[380px] flex-col justify-center px-8 py-10 md:px-14 md:py-12 lg:px-20">
-                            <div className="max-w-4xl text-white">
-                                <div className="flex items-center gap-3">
-                                    <span className="h-px w-8 bg-[#f1c56a]" />
-                                    <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#f1c56a]">
-                                        Marketplace agro
-                                    </p>
-                                </div>
-
-                                <h1 className="mt-4 text-4xl font-extrabold leading-[0.95] tracking-tight md:text-5xl lg:text-6xl">
-                                    Produtos e lojas do agro <span className="italic font-light text-[#f1c56a]">em um so</span> lugar.
-                                </h1>
-
-                                <p className="mt-5 max-w-2xl text-base leading-7 text-white/85 md:text-lg">
-                                    Encontre insumos, equipamentos, sementes e vendedores em uma vitrine
-                                    pensada para compra e venda com <span className="font-semibold text-white">mais clareza</span>.
-                                </p>
-
-                                <div className="mt-7 flex flex-wrap items-center gap-3">
+                            <div className="flex items-center gap-2 rounded-full bg-black/20 px-3 py-2 backdrop-blur-sm">
+                                {heroBackgrounds.map((bg, index) => (
                                     <button
-                                        onClick={() => setParam('category', 'Todos')}
-                                        className="btn-accent rounded-xl px-7 py-3.5 text-sm shadow-lg shadow-black/20"
-                                    >
-                                        Explorar catalogo
-                                    </button>
-                                    <Link
-                                        to="/register"
-                                        className="btn rounded-xl border border-white/30 bg-white/5 px-7 py-3.5 text-sm text-white backdrop-blur-sm hover:bg-white/15"
-                                    >
-                                        Quero vender
-                                    </Link>
-                                </div>
+                                        key={bg.image}
+                                        onClick={() => setBgIndex(index)}
+                                        className={`h-1.5 rounded-full transition-all duration-500 ${index === bgIndex ? 'w-10 bg-[#f1c56a]' : 'w-4 bg-white/40 hover:bg-white/70'}`}
+                                        aria-label={`Ir para imagem ${index + 1}`}
+                                    />
+                                ))}
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
@@ -177,11 +161,12 @@ export default function Home() {
                         <QuickActionCard
                             variant="greenLight"
                             title="Ofertas"
-                            description="As melhores ofertas do agro você encontra aqui."
+                            description="As melhores ofertas do agro voce encontra aqui."
                             cta="Ver mais"
                             to="/?featured=true"
                             size="md"
-                            bgImage="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1100&q=80"
+                            bgImage="/promos/custom/hero-card-ofertas.png"
+                            artOnly
                         />
                         <QuickActionCard
                             variant="green"
@@ -191,27 +176,30 @@ export default function Home() {
                             cta="Ver mais"
                             to="/?category=Fertilizantes"
                             size="md"
-                            bgImage="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1100&q=80"
+                            bgImage="/promos/custom/hero-card-agricultura.png"
+                            artOnly
                         />
                         <QuickActionCard
                             variant="amber"
-                            title="Máquinas e"
+                            title="Maquinas e"
                             highlight="equipamentos"
                             description="Tratores, implementos e ferramentas."
                             cta="Ver mais"
-                            to="/?category=Máquinas"
+                            to="/?category=M%C3%A1quinas"
                             size="md"
-                            bgImage="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=1100&q=80"
+                            bgImage="/promos/custom/hero-card-maquinas.png"
+                            artOnly
                         />
                         <QuickActionCard
                             variant="dark"
                             title="Lojas"
                             highlight="verificadas"
-                            description="Vendedores aprovados e com reputação."
+                            description="Vendedores aprovados e com reputacao."
                             cta="Explorar"
                             to="/stores"
                             size="md"
-                            bgImage="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1100&q=80"
+                            bgImage="/promos/custom/hero-card-lojas.png"
+                            artOnly
                         />
                     </div>
                 </section>
@@ -283,30 +271,119 @@ export default function Home() {
                 <section className="container-page py-8">
                     <div className="overflow-hidden rounded-[32px] bg-white shadow-card">
                         <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
-                            <div className="relative min-h-[320px]">
+                            <div className="relative min-h-[360px] overflow-hidden lg:min-h-[620px]">
                                 <img
-                                    src="https://images.unsplash.com/photo-1524486361537-8ad15938e1a3?auto=format&fit=crop&w=1200&q=80"
-                                    alt="Produtor rural"
+                                    src="/promos/custom/hero-card-lojas.png"
+                                    alt="Arte promocional de lojas parceiras"
                                     className="absolute inset-0 h-full w-full object-cover"
+                                    decoding="async"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 to-transparent" />
-                                <div className="absolute bottom-6 left-6 right-6 text-white">
-                                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/80">Lojas parceiras</p>
-                                    <h2 className="mt-3 text-3xl font-extrabold leading-tight">
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/25 to-transparent" />
+                                <div className="absolute bottom-8 left-8 right-8 text-white">
+                                    <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/80">
+                                        Lojas parceiras
+                                    </p>
+                                    <h2 className="mt-3 max-w-sm text-3xl font-extrabold leading-tight">
                                         Vendedores em evidencia dentro da plataforma.
                                     </h2>
                                 </div>
                             </div>
 
                             <div className="p-6 md:p-8">
-                                <div className="mb-6">
-                                    <span className="section-kicker">Lojas verificadas</span>
-                                    <p className="mt-4 max-w-xl text-sm leading-6 text-slate-500">
-                                        Lojas com cadastro revisado e histórico de vendas. Conheça quem está por trás de cada produto.
-                                    </p>
+                                <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                                    <div>
+                                        <span className="section-kicker">
+                                            <Store className="h-4 w-4" />
+                                            Lojas verificadas
+                                        </span>
+                                        <p className="mt-5 max-w-2xl text-sm leading-6 text-slate-500">
+                                            Lojas com cadastro revisado e historico de vendas. Conheca quem esta por tras de cada produto.
+                                        </p>
+                                    </div>
+                                    <Link
+                                        to="/stores"
+                                        className="inline-flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-brand-800"
+                                    >
+                                        Ver todas
+                                        <ArrowRight className="h-4 w-4" />
+                                    </Link>
                                 </div>
+
                                 <div className="grid gap-5 sm:grid-cols-2">
-                                    {sellers.slice(0, 4).map((seller) => <SellerCard key={seller.id} seller={seller} />)}
+                                    {sellers.slice(0, 4).map((seller) => {
+                                        const rating = Number(seller.rating) || 0;
+                                        const productsCount = Number(seller.products_count) || 0;
+
+                                        return (
+                                            <Link
+                                                key={seller.id}
+                                                to={`/store/${seller.store_slug}`}
+                                                className="group relative flex min-h-[250px] flex-col overflow-hidden rounded-[24px] border border-stone-200 bg-white transition hover:border-brand-300 hover:shadow-md"
+                                            >
+                                                <div className="relative h-24 overflow-hidden bg-stone-100">
+                                                    {seller.banner_url ? (
+                                                        <img
+                                                            src={seller.banner_url}
+                                                            alt={seller.store_name}
+                                                            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                                                        />
+                                                    ) : (
+                                                        <div className="h-full w-full bg-gradient-to-br from-brand-700 via-brand-600 to-brand-900" />
+                                                    )}
+                                                    {seller.verified && (
+                                                        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-[11px] font-bold text-brand-700 shadow-sm">
+                                                            <Check className="h-3 w-3" strokeWidth={3} />
+                                                            Verificada
+                                                        </span>
+                                                    )}
+                                                </div>
+
+                                                <div className="absolute left-4 top-16 z-20 grid h-16 w-16 place-items-center overflow-hidden rounded-2xl border-4 border-white bg-brand-700 text-lg font-extrabold text-white shadow-md">
+                                                    {seller.logo_url ? (
+                                                        <img
+                                                            src={seller.logo_url}
+                                                            alt={seller.store_name}
+                                                            className="h-full w-full object-contain bg-white p-2"
+                                                            onError={(event) => { event.currentTarget.src = '/stores/logos/galopee-store.svg'; }}
+                                                        />
+                                                    ) : (
+                                                        <span>{sellerInitials(seller.store_name) || 'GP'}</span>
+                                                    )}
+                                                </div>
+
+                                                <div className="flex flex-1 flex-col p-4 pt-14">
+                                                    <h3 className="mt-4 line-clamp-1 text-base font-extrabold text-slate-900">
+                                                        {seller.store_name}
+                                                    </h3>
+                                                    <div className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                                                        <MapPin className="h-3.5 w-3.5" />
+                                                        <span className="truncate">
+                                                            {[seller.city, seller.state].filter(Boolean).join('/')}
+                                                        </span>
+                                                    </div>
+
+                                                    <div className="mt-4 flex items-center gap-3 rounded-full bg-stone-50 px-3 py-2 text-xs text-slate-500">
+                                                        <span className="inline-flex items-center gap-1">
+                                                            <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                                                            <strong className="text-slate-800">{rating.toFixed(1)}</strong>
+                                                            avaliacao
+                                                        </span>
+                                                        <span className="h-4 w-px bg-stone-200" />
+                                                        <span className="inline-flex items-center gap-1">
+                                                            <Package className="h-3.5 w-3.5 text-brand-700" />
+                                                            <strong className="text-slate-800">{productsCount}</strong>
+                                                            produtos
+                                                        </span>
+                                                    </div>
+
+                                                    <span className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-extrabold text-white transition group-hover:bg-brand-800">
+                                                        Ver loja
+                                                        <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         </div>
@@ -368,7 +445,7 @@ export default function Home() {
                     <PromoBanner
                         variant="green"
                         image="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=600&q=80"
-                        title="Quer ser um vendedor no Galoppe?"
+                        title="Quer ser um vendedor no Galopee?"
                         description="Cadastre-se hoje mesmo e comece a vender para todo o Brasil, sem complicacao e com mais visibilidade."
                         cta="Saiba mais"
                         to="/register"

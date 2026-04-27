@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Agropecuaria Horizonte</title>
+  <desc id="desc">Logo terroso com monograma AH e horizonte.</desc>
+  <defs>
+    <linearGradient id="bg" x1="24" x2="216" y1="24" y2="216" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b66a12"/>
+      <stop offset="1" stop-color="#3f2715"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" rx="52" fill="url(#bg)"/>
+  <path d="M48 128c22-24 48-36 78-36s54 12 66 36" fill="none" stroke="#f7d174" stroke-width="8" stroke-linecap="round"/>
+  <path d="M44 151h152" stroke="#8fc457" stroke-width="8" stroke-linecap="round"/>
+  <text x="120" y="129" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="74" font-weight="800" fill="#fff">AH</text>
+</svg>

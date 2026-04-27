@@ -13,7 +13,7 @@ export default function SellerCard({ seller }) {
 
     return (
         <Link
-            to={`/loja/${seller.store_slug}`}
+            to={`/store/${seller.store_slug}`}
             className="group relative flex flex-col overflow-hidden rounded-[24px] border border-stone-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-cardHover"
         >
             <div className="relative h-28 overflow-hidden">
@@ -32,15 +32,20 @@ export default function SellerCard({ seller }) {
                 )}
             </div>
 
-            <div className="relative px-5 pb-5">
-                <div className="-mt-9 mb-3 grid h-[72px] w-[72px] place-items-center overflow-hidden rounded-[20px] border border-stone-200 bg-white text-lg font-extrabold tracking-tight text-slate-800 shadow-sm">
-                    {seller.logo_url ? (
-                        <img src={seller.logo_url} alt={seller.store_name} className="h-full w-full object-contain p-1.5" />
-                    ) : (
-                        <span>{initials || '—'}</span>
-                    )}
-                </div>
+            <div className="absolute left-5 top-20 z-20 grid h-[72px] w-[72px] place-items-center overflow-hidden rounded-[20px] border-4 border-white bg-white text-lg font-extrabold tracking-tight text-slate-800 shadow-md">
+                {seller.logo_url ? (
+                    <img
+                        src={seller.logo_url}
+                        alt={seller.store_name}
+                        className="h-full w-full object-contain p-1.5"
+                        onError={(event) => { event.currentTarget.src = '/stores/logos/galopee-store.svg'; }}
+                    />
+                ) : (
+                    <span>{initials || 'GP'}</span>
+                )}
+            </div>
 
+            <div className="relative px-5 pb-5 pt-14">
                 <h3 className="truncate text-[17px] font-extrabold leading-tight text-slate-900">
                     {seller.store_name}
                 </h3>

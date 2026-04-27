@@ -63,7 +63,7 @@ export default function Register() {
                 <div className="p-6 sm:p-8 lg:p-12">
                     <div className="mx-auto max-w-xl">
                         <Link to="/" className="block text-center font-display text-4xl leading-none text-brand-700 lg:hidden">
-                            Galoppe
+                            Galopee
                         </Link>
 
                         <div className="mt-8 lg:mt-0">
@@ -170,7 +170,7 @@ export default function Register() {
                                     onChange={(e) => update({ acceptedTerms: e.target.checked })}
                                 />
                                 <span>
-                                    Li e aceito os Termos de Uso e a Política de Privacidade do Galoppe.
+                                    Li e aceito os Termos de Uso e a Política de Privacidade do Galopee.
                                 </span>
                             </label>
 

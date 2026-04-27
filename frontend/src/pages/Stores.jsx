@@ -132,7 +132,7 @@ export default function Stores() {
                         </h1>
                         <p className="mt-3 max-w-xl text-sm leading-6 text-white/85 md:text-base">
                             Busque por nome, filtre por estado e compare avaliações de vendedores
-                            cadastrados no Galoppe.
+                            cadastrados no Galopee.
                         </p>
 
                         {/* Search inline no hero */}
@@ -284,7 +284,7 @@ export default function Stores() {
                                 É produtor ou revendedor?
                             </p>
                             <h2 className="mt-3 text-3xl font-extrabold leading-tight">
-                                Abra sua loja no Galoppe.
+                                Abra sua loja no Galopee.
                             </h2>
                             <p className="mt-2 max-w-xl text-sm leading-6 text-white/85">
                                 Cadastre seus produtos e apareça nesta lista para milhares de compradores.

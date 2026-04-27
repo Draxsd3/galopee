@@ -42,7 +42,7 @@ export default function Login() {
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/62 to-brand-800/20" />
                     <div className="absolute inset-x-8 bottom-8 text-white">
                         <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-200">
-                            Galoppe
+                            Galopee
                         </p>
                         <h1 className="mt-4 max-w-md text-4xl font-extrabold leading-tight">
                             Uma conta para comprar, vender e gerenciar tudo.
@@ -56,7 +56,7 @@ export default function Login() {
                 <div className="p-6 sm:p-8 lg:p-12">
                     <div className="mx-auto max-w-md">
                         <Link to="/" className="block text-center font-display text-4xl leading-none text-brand-700 lg:hidden">
-                            Galoppe
+                            Galopee
                         </Link>
 
                         <div className="mt-8 text-center lg:mt-0 lg:text-left">

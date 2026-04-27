@@ -1,40 +1,40 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '../utils/format';
-
-const categoryFallbacks = {
-    Sementes: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=80',
-    Graos: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=900&q=80',
-    Racao: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=900&q=80',
-    Fertilizantes: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=900&q=80',
-    Defensivos: 'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=900&q=80',
-    Irrigacao: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80',
-    Maquinas: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=900&q=80',
-};
+import { getProductFallback } from '../utils/productImage';
 
 export default function ProductCard({ product }) {
+    const [imgSrc, setImgSrc] = useState(product.image_url || '');
     const hasDiscount = product.compare_price && Number(product.compare_price) > Number(product.price);
     const discountPct = hasDiscount
         ? Math.round(((product.compare_price - product.price) / product.compare_price) * 100)
         : 0;
 
-    const normalizedCategory = (product.category || '')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '');
-    const fallbackImage = categoryFallbacks[normalizedCategory]
-        || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80';
-    const imageSrc = product.image_url || fallbackImage;
+    const fallbackImage = getProductFallback(product.category);
+
+    useEffect(() => {
+        setImgSrc(product.image_url || fallbackImage);
+    }, [product.id, product.image_url, fallbackImage]);
 
     return (
         <Link
             to={`/product/${product.id}`}
             className="group block overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-lg"
         >
-            <div className="relative aspect-square overflow-hidden bg-stone-50">
+            <div className="relative aspect-square overflow-hidden bg-white">
                 <img
-                    src={imageSrc}
+                    src={imgSrc}
                     alt={product.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-[1.01]"
                     loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
+                    style={{ imageRendering: 'auto' }}
+                    onError={() => {
+                        if (imgSrc !== fallbackImage) {
+                            setImgSrc(fallbackImage);
+                        }
+                    }}
                 />
                 {hasDiscount && (
                     <span className="absolute left-3 top-3 rounded-full bg-accent-500 px-2.5 py-1 text-xs font-bold text-white">

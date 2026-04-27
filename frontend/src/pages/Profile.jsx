@@ -133,7 +133,7 @@ export default function Profile() {
                                             : 'text-slate-600 hover:bg-stone-50 hover:text-slate-900'
                                     }`}
                                 >
-                                    Vender no Galoppe
+                                    Vender no Galopee
                                 </button>
                             )}
                         </nav>

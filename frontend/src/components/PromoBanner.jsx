@@ -1,24 +1,14 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
-/*
- * Dois modos de uso:
- *   1. Banner ilustrado (art): <PromoBanner variant="points" /> ou
- *      <PromoBanner variant="guarantee" /> — renderiza a imagem como
- *      card inteiro, com aspect ratio fixo para que os dois fiquem
- *      sempre do mesmo tamanho.
- *   2. CTA clássico: <PromoBanner variant="green" image title description cta to />
- *      — banner em faixa com título, texto e botão.
- */
-
 const IMAGE_VARIANTS = {
     points: {
         src: '/promos/pontos.jpg',
-        alt: 'GalopePontos: acumule pontos a cada compra e troque por benefícios',
+        alt: 'Galopee Pontos: acumule pontos a cada compra e troque por beneficios',
     },
     guarantee: {
         src: '/promos/garantia.jpg',
-        alt: 'Garantia Galopee: satisfação garantida ou seu dinheiro de volta',
+        alt: 'Garantia Galopee: satisfacao garantida ou seu dinheiro de volta',
     },
 };
 
@@ -48,7 +38,6 @@ export default function PromoBanner({
     description,
     cta = 'Saiba mais',
 }) {
-    // Modo 1: banner ilustrado
     if (IMAGE_VARIANTS[variant] && !title) {
         const v = IMAGE_VARIANTS[variant];
         return (
@@ -67,7 +56,6 @@ export default function PromoBanner({
         );
     }
 
-    // Modo 2: CTA clássico
     const v = CTA_VARIANTS[variant] || CTA_VARIANTS.green;
     return (
         <div className="overflow-hidden rounded-[24px] shadow-card">

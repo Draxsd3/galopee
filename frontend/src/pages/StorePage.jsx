@@ -39,11 +39,16 @@ export default function StorePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
             </div>
 
-            <div className="container-page -mt-16 relative">
+            <div className="container-page -mt-16 relative z-10">
                 <div className="card p-6 flex flex-col md:flex-row items-start md:items-center gap-4">
                     <div className="w-24 h-24 rounded-xl bg-white border-4 border-white shadow-lg grid place-items-center overflow-hidden shrink-0">
                         {seller.logo_url ? (
-                            <img src={seller.logo_url} alt={seller.store_name} className="w-full h-full object-cover" />
+                            <img
+                                src={seller.logo_url}
+                                alt={seller.store_name}
+                                className="w-full h-full object-contain p-2"
+                                onError={(event) => { event.currentTarget.src = '/stores/logos/galopee-store.svg'; }}
+                            />
                         ) : (
                             <Store className="w-10 h-10 text-brand-700" />
                         )}

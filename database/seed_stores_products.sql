@@ -43,7 +43,7 @@ BEGIN
             'Campo Norte Insumos',
             'campo-norte-insumos',
             'Empresa de teste focada em defensivos, sementes e insumos para grandes culturas.',
-            'https://ui-avatars.com/api/?name=Campo+Norte&background=166534&color=fff&size=200',
+            '/stores/logos/campo-norte-insumos.svg',
             'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
             'Sorriso',
             'MT',
@@ -69,7 +69,7 @@ BEGIN
             'Herbicida Teste Campo Norte 20L',
             'Produto de teste para validar fluxo de catalogo, carrinho e checkout.',
             459.90, 499.90,
-            'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=900&q=80',
+            '/products/test/detonamato-herbicida.webp',
             80, 'Defensivos', 'TEST-CN-GLIFOSATO-20L', TRUE, TRUE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-CN-GLIFOSATO-20L'
@@ -82,7 +82,7 @@ BEGIN
             'Semente de Soja Teste 20kg',
             'Semente certificada ficticia para ambientes de desenvolvimento.',
             389.90, 429.90,
-            'https://images.unsplash.com/photo-1580420876508-84a3b6b5be91?auto=format&fit=crop&w=900&q=80',
+            '/products/test/cab-fertilizante.webp',
             120, 'Sementes', 'TEST-CN-SEMENTE-SOJA', TRUE, FALSE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-CN-SEMENTE-SOJA'
@@ -106,7 +106,7 @@ BEGIN
             'Terra Viva Sementes',
             'terra-viva-sementes',
             'Empresa de teste para sementes, pastagens e variedades de alta produtividade.',
-            'https://ui-avatars.com/api/?name=Terra+Viva&background=ca8a04&color=fff&size=200',
+            '/stores/logos/terra-viva-sementes.svg',
             'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80',
             'Rio Verde',
             'GO',
@@ -132,7 +132,7 @@ BEGIN
             'Milho Hibrido Teste 20kg',
             'Produto ficticio para testes de vitrine e compra.',
             519.00, 559.00,
-            'https://images.unsplash.com/photo-1601593768799-76d3ca1f3b82?auto=format&fit=crop&w=900&q=80',
+            '/products/test/cab-fertilizante.webp',
             90, 'Sementes', 'TEST-TV-MILHO-HIBRIDO', TRUE, TRUE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-TV-MILHO-HIBRIDO'
@@ -145,7 +145,7 @@ BEGIN
             'Brachiaria Teste 20kg',
             'Produto de teste para compra recorrente de pastagem.',
             279.90, NULL,
-            'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=900&q=80',
+            '/products/test/grao-verde-formicida.webp',
             70, 'Sementes', 'TEST-TV-BRACHIARIA', FALSE, FALSE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-TV-BRACHIARIA'
@@ -169,7 +169,7 @@ BEGIN
             'Agropecuaria Horizonte',
             'agropecuaria-horizonte',
             'Empresa de teste com racoes, suplementos e itens para pecuaria.',
-            'https://ui-avatars.com/api/?name=Horizonte&background=854d0e&color=fff&size=200',
+            '/stores/logos/agropecuaria-horizonte.svg',
             'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=1200&q=80',
             'Uberaba',
             'MG',
@@ -195,7 +195,7 @@ BEGIN
             'Racao Bovina Teste 40kg',
             'Racao ficticia para validar estoque, carrinho e pedidos.',
             209.00, 239.00,
-            'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=900&q=80',
+            '/products/test/detonamato-herbicida.webp',
             110, 'Ração', 'TEST-AH-RACAO-BOVINA', TRUE, TRUE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-AH-RACAO-BOVINA'
@@ -208,7 +208,7 @@ BEGIN
             'Sal Mineral Teste 30kg',
             'Suplemento ficticio para simulacao de pedidos.',
             154.90, NULL,
-            'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=900&q=80',
+            '/products/test/redut-ph-adjuvante.webp',
             140, 'Ração', 'TEST-AH-SAL-MINERAL', TRUE, FALSE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-AH-SAL-MINERAL'
@@ -232,7 +232,7 @@ BEGIN
             'Pivo Certo Irrigacao',
             'pivo-certo-irrigacao',
             'Empresa de teste especializada em irrigacao, bombas e kits de gotejamento.',
-            'https://ui-avatars.com/api/?name=Pivo+Certo&background=0369a1&color=fff&size=200',
+            '/stores/logos/pivo-certo-irrigacao.svg',
             'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1200&q=80',
             'Londrina',
             'PR',
@@ -258,7 +258,7 @@ BEGIN
             'Kit Gotejamento Teste 100m',
             'Kit ficticio para testar produtos de ticket medio.',
             599.00, 689.00,
-            'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=80',
+            '/products/test/redut-ph-adjuvante.webp',
             35, 'Irrigação', 'TEST-PC-GOTEJAMENTO-100M', FALSE, TRUE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-PC-GOTEJAMENTO-100M'
@@ -271,7 +271,7 @@ BEGIN
             'Aspersor Teste 3/4',
             'Produto ficticio para validar itens de baixo valor no carrinho.',
             49.90, NULL,
-            'https://images.unsplash.com/photo-1508504311323-1d3c22a8f9b4?auto=format&fit=crop&w=900&q=80',
+            '/products/test/akb-herbicida.webp',
             200, 'Irrigação', 'TEST-PC-ASPERSOR', TRUE, FALSE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-PC-ASPERSOR'
@@ -295,7 +295,7 @@ BEGIN
             'Raiz Forte Fertilizantes',
             'raiz-forte-fertilizantes',
             'Empresa de teste para fertilizantes, corretivos e nutricao de solo.',
-            'https://ui-avatars.com/api/?name=Raiz+Forte&background=15803d&color=fff&size=200',
+            '/stores/logos/raiz-forte-fertilizantes.svg',
             'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?auto=format&fit=crop&w=1200&q=80',
             'Ribeirao Preto',
             'SP',
@@ -321,7 +321,7 @@ BEGIN
             'NPK Teste 20-05-20 50kg',
             'Fertilizante ficticio para validacao de catalogo e checkout.',
             289.00, 329.00,
-            'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?auto=format&fit=crop&w=900&q=80',
+            '/products/test/cab-fertilizante.webp',
             180, 'Fertilizantes', 'TEST-RF-NPK', TRUE, TRUE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-RF-NPK'
@@ -334,7 +334,7 @@ BEGIN
             'Calcario Teste 30kg',
             'Corretivo ficticio para fluxo de compra com varias unidades.',
             59.00, NULL,
-            'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=900&q=80',
+            '/products/test/redut-ph-adjuvante.webp',
             260, 'Fertilizantes', 'TEST-RF-CALCARIO', FALSE, FALSE, TRUE
         WHERE NOT EXISTS (
             SELECT 1 FROM products WHERE seller_id = v_seller_id AND sku = 'TEST-RF-CALCARIO'
