@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ArrowRight, Check, Flame, MapPin, Package, Star, Store, UserPlus } from 'lucide-react';
+import { ArrowRight, Check, Flame, MapPin, Package, Star, Store } from 'lucide-react';
 import api from '../services/api';
 import ProductCard from '../components/ProductCard';
 import QuickActionCard from '../components/QuickActionCard';
@@ -8,19 +8,19 @@ import PromoBanner from '../components/PromoBanner';
 
 const heroBackgrounds = [
     {
-        image: '/promos/custom/hero-slide-1.svg',
+        image: '/promos/custom/hero-slide-1.png',
         alt: 'Tudo num so lugar - Galopee Marketplace',
     },
     {
-        image: '/promos/custom/hero-slide-2.svg',
+        image: '/promos/custom/hero-slide-2.png',
         alt: 'Frete gratis em milhares de produtos',
     },
     {
-        image: '/promos/custom/hero-slide-3.svg',
+        image: '/promos/custom/hero-slide-3.png',
         alt: 'Mega Ofertas ate 50% OFF em produtos selecionados',
     },
     {
-        image: '/promos/custom/hero-slide-4.svg',
+        image: '/promos/custom/hero-slide-4.png',
         alt: '12x sem juros em todas as compras',
     },
 ];
@@ -123,32 +123,15 @@ export default function Home() {
                         ))}
 
                         <div className="absolute bottom-4 left-4 z-20 flex flex-col items-start gap-3 md:bottom-5 lg:left-10">
-                            <div className="flex flex-wrap items-center gap-2.5 md:gap-3">
-                                <button
-                                    onClick={() => setParam('category', 'Todos')}
-                                    className="group/cta relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-extrabold text-brand-800 shadow-[0_8px_24px_-6px_rgba(67,56,202,0.55)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_10px_32px_-6px_rgba(67,56,202,0.7)] active:scale-100 md:px-7 md:py-3 md:text-base"
-                                >
-                                    <span className="relative z-10 inline-flex items-center gap-2.5">
-                                        Explorar catálogo
-                                        <span className="grid h-7 w-7 place-items-center rounded-full bg-brand-700 text-white transition-transform duration-300 group-hover/cta:translate-x-0.5">
-                                            <ArrowRight className="h-3.5 w-3.5" strokeWidth={3} />
-                                        </span>
-                                    </span>
-                                    <span
-                                        aria-hidden
-                                        className="pointer-events-none absolute inset-y-0 -left-12 w-12 -skew-x-12 bg-gradient-to-r from-transparent via-white/70 to-transparent transition-all duration-700 ease-out group-hover/cta:left-[110%]"
-                                    />
-                                </button>
-                                <Link
-                                    to="/register"
-                                    className="group/cta2 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-extrabold text-white shadow-md backdrop-blur-md transition-all duration-300 hover:border-white/60 hover:bg-white/20 md:px-6 md:py-3 md:text-base"
-                                >
-                                    <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 ring-1 ring-white/30 transition group-hover/cta2:bg-white/30">
-                                        <UserPlus className="h-3.5 w-3.5" strokeWidth={2.5} />
-                                    </span>
-                                    Quero vender
-                                </Link>
-                            </div>
+                            <button
+                                onClick={() => setParam('category', 'Todos')}
+                                className="group/cta inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-extrabold text-brand-800 shadow-md transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-100 md:px-5 md:py-2.5 md:text-sm"
+                            >
+                                Explorar catálogo
+                                <span className="grid h-5 w-5 place-items-center rounded-full bg-brand-700 text-white transition-transform duration-300 group-hover/cta:translate-x-0.5 md:h-6 md:w-6">
+                                    <ArrowRight className="h-3 w-3 md:h-3.5 md:w-3.5" strokeWidth={3} />
+                                </span>
+                            </button>
 
                             <div className="flex items-center gap-2 rounded-full bg-black/20 px-3 py-2 backdrop-blur-sm">
                                 {heroBackgrounds.map((bg, index) => (
@@ -440,4 +423,29 @@ export default function Home() {
                                 <div className="col-span-2">
                                     <PromoBanner variant="points" to="/" />
                                 </div>
-                            
+                                <div className="col-span-2">
+                                    <PromoBanner variant="guarantee" to="/" />
+                                </div>
+                            </>
+                        )}
+                        {productsAfterPromo.map((p) => <ProductCard key={`after-${p.id}`} product={p} />)}
+                    </div>
+                )}
+            </section>
+
+            {!isFiltering && (
+                <section className="container-page pt-8">
+                    <PromoBanner
+                        variant="green"
+                        image="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&q=80"
+                        title="Quer ser um vendedor no Galopee?"
+                        description="Cadastre-se hoje mesmo e comece a vender para todo o Brasil, sem complicacao e com mais visibilidade."
+                        cta="Saiba mais"
+                        to="/register"
+                    />
+                </section>
+            )}
+        </div>
+    );
+}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
