@@ -482,7 +482,7 @@ export default function ProductDetail() {
                                     </div>
 
                                     <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-                                        {displaySeller?.description || 'Loja parceira do Galopee com produtos selecionados para o agro.'}
+                                        {displaySeller?.description || 'Loja parceira do Galopee com produtos selecionados.'}
                                     </p>
                                 </div>
                             </div>
@@ -661,3 +661,4 @@ export default function ProductDetail() {
         </div>
     );
 }
+            

@@ -9,19 +9,19 @@ import PromoBanner from '../components/PromoBanner';
 const heroBackgrounds = [
     {
         image: '/promos/custom/hero-slide-1.png',
-        alt: 'Hero promocional do marketplace agro com smartphone e fertilizante',
+        alt: 'Hero promocional do marketplace Galopee',
     },
     {
         image: '/promos/custom/hero-slide-2.png',
-        alt: 'Hero promocional com tablet, fertilizante foliar e beneficios do marketplace',
+        alt: 'Hero promocional com beneficios do marketplace Galopee',
     },
     {
         image: '/promos/custom/hero-slide-3.png',
-        alt: 'Hero promocional com destaque para oportunidades no agro',
+        alt: 'Hero promocional com destaque para ofertas',
     },
     {
         image: '/promos/custom/hero-slide-4.png',
-        alt: 'Hero promocional com condicoes de pagamento e marketplace agro',
+        alt: 'Hero promocional com condicoes de pagamento',
     },
 ];
 
@@ -161,7 +161,7 @@ export default function Home() {
                         <QuickActionCard
                             variant="greenLight"
                             title="Ofertas"
-                            description="As melhores ofertas do agro voce encontra aqui."
+                            description="As melhores ofertas voce encontra aqui."
                             cta="Ver mais"
                             to="/?featured=true"
                             size="md"
@@ -170,22 +170,22 @@ export default function Home() {
                         />
                         <QuickActionCard
                             variant="green"
-                            title="Tudo na"
-                            highlight="agricultura"
-                            description="Insumos, sementes, fertilizantes e defensivos."
+                            title="Tudo em"
+                            highlight="eletrônicos"
+                            description="Smartphones, notebooks, audio e gadgets."
                             cta="Ver mais"
-                            to="/?category=Fertilizantes"
+                            to="/?category=Eletr%C3%B4nicos"
                             size="md"
                             bgImage="/promos/custom/hero-card-agricultura.png"
                             artOnly
                         />
                         <QuickActionCard
                             variant="amber"
-                            title="Maquinas e"
-                            highlight="equipamentos"
-                            description="Tratores, implementos e ferramentas."
+                            title="Moda e"
+                            highlight="estilo"
+                            description="Roupas, calcados e acessorios das tendencias."
                             cta="Ver mais"
-                            to="/?category=M%C3%A1quinas"
+                            to="/?category=Moda"
                             size="md"
                             bgImage="/promos/custom/hero-card-maquinas.png"
                             artOnly
@@ -214,7 +214,7 @@ export default function Home() {
                             </span>
                             <h2 className="mt-4 text-3xl font-extrabold text-slate-900">As melhores ofertas do momento</h2>
                             <p className="mt-2 max-w-2xl text-sm text-slate-500">
-                                Uma secao forte de vitrine, inspirada em marketplace do agro, mas com leitura mais limpa.
+                                Selecionamos os destaques de todas as categorias para voce nao perder.
                             </p>
                         </div>
                         <Link to="/" className="hidden items-center gap-2 text-sm font-semibold text-brand-700 md:inline-flex">
@@ -226,7 +226,7 @@ export default function Home() {
                         <div className="col-span-2 lg:col-span-1">
                             <Link
                                 to="/?featured=true"
-                                className="group relative flex h-full min-h-[320px] flex-col justify-between overflow-hidden rounded-[24px] bg-gradient-to-br from-[#8bc34a] via-[#7cb342] to-[#5f8f34] p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                                className="group relative flex h-full min-h-[320px] flex-col justify-between overflow-hidden rounded-[24px] bg-gradient-to-br from-[#818cf8] via-[#6366f1] to-[#4338ca] p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                             >
                                 <div
                                     className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/15 blur-3xl"
@@ -250,12 +250,12 @@ export default function Home() {
                                         Ofertas
                                     </h3>
                                     <p className="mt-4 max-w-[180px] text-sm leading-6 text-white/90">
-                                        As melhores ofertas do agro voce encontra aqui.
+                                        As melhores ofertas voce encontra aqui.
                                     </p>
                                 </div>
 
                                 <div className="relative z-10 mt-6">
-                                    <span className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-bold text-[#4a7a1f] shadow-lg transition-transform group-hover:translate-x-1">
+                                    <span className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-bold text-[#4338ca] shadow-lg transition-transform group-hover:translate-x-1">
                                         Ver mais
                                         <ArrowRight className="h-4 w-4" />
                                     </span>
@@ -444,7 +444,7 @@ export default function Home() {
                 <section className="container-page pt-8">
                     <PromoBanner
                         variant="green"
-                        image="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=600&q=80"
+                        image="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&q=80"
                         title="Quer ser um vendedor no Galopee?"
                         description="Cadastre-se hoje mesmo e comece a vender para todo o Brasil, sem complicacao e com mais visibilidade."
                         cta="Saiba mais"
@@ -455,3 +455,4 @@ export default function Home() {
         </div>
     );
 }
+                                                                                                                                    

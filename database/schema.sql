@@ -1,9 +1,8 @@
 -- ============================================================
 -- Galoppe Marketplace - PostgreSQL Schema
 -- ============================================================
--- Script de criação completa das tabelas, relacionamentos,
--- índices, triggers e seed data para o marketplace.
--- Estilo TodoAgro: múltiplas empresas, catálogo amplo.
+-- Marketplace genérico (multimercado): 10 categorias diversas,
+-- uma loja em cada categoria com produtos representativos.
 -- ============================================================
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
@@ -181,124 +180,107 @@ INSERT INTO users (name, email, password_hash, role, phone, document) VALUES
 ('João Silva',          'joao@email.com',          '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'buyer',  '(11) 98888-1111', '111.222.333-44'),
 ('Maria Oliveira',      'maria@email.com',         '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'buyer',  '(11) 98888-2222', '222.333.444-55'),
 ('Carlos Mendes',       'carlos@email.com',        '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'buyer',  '(62) 98888-3333', '333.444.555-66'),
--- Vendedores (role seller) - 10 empresas
-('Fazenda do Vale',     'contato@fazendadovale.com',     '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(11) 97777-3333', '11.111.111/0001-11'),
-('AgroLoja',            'contato@agroloja.com',          '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(11) 97777-4444', '22.222.222/0001-22'),
-('Sementes Brasil',     'vendas@sementesbrasil.com',     '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(62) 97777-5555', '33.333.333/0001-33'),
-('Máquinas do Campo',   'comercial@maqcampo.com',        '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(34) 97777-6666', '44.444.444/0001-44'),
-('Defensivos Premium',  'vendas@defensivospremium.com',  '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(44) 97777-7777', '55.555.555/0001-55'),
-('Ração Forte',         'contato@racaoforte.com',        '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(11) 97777-8888', '66.666.666/0001-66'),
-('Veterinária Rural',   'contato@vetrural.com',          '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(62) 97777-9999', '77.777.777/0001-77'),
-('Irrigação Total',     'vendas@irrigacaototal.com',     '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(43) 97776-1111', '88.888.888/0001-88'),
-('Adubos & Cia',        'contato@adubosecia.com',        '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(65) 97776-2222', '99.999.999/0001-99'),
-('Ferramentas Agro',    'contato@ferramentasagro.com',   '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(31) 97776-3333', '10.101.010/0001-10');
+-- Vendedores (role seller) - 10 lojas, uma por categoria
+('TechZone Eletrônicos','contato@techzone.com.br',       '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(11) 97777-3333', '11.111.111/0001-11'),
+('Trend Modas',         'atendimento@trendmodas.com.br', '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(11) 97777-4444', '22.222.222/0001-22'),
+('Casa Bonita Decor',   'vendas@casabonitadecor.com.br', '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(21) 97777-5555', '33.333.333/0001-33'),
+('Glow Beauty',         'sac@glowbeauty.com.br',         '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(31) 97777-6666', '44.444.444/0001-44'),
+('Sport Power',         'contato@sportpower.com.br',     '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(41) 97777-7777', '55.555.555/0001-55'),
+('Mundo Pet',           'atendimento@mundopet.com.br',   '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(11) 97777-8888', '66.666.666/0001-66'),
+('Livraria Páginas',    'contato@livrariapaginas.com.br','$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(51) 97777-9999', '77.777.777/0001-77'),
+('Brinque Mais',        'vendas@brinquemais.com.br',     '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(43) 97776-1111', '88.888.888/0001-88'),
+('Sabor & Cia',         'contato@saborecia.com.br',      '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(81) 97776-2222', '99.999.999/0001-99'),
+('AutoParts Pro',       'comercial@autopartspro.com.br', '$2b$10$1aK/fAM1FcoYKao7vMmsiervn9DtXZqr/BlkCk/3X4t8hQmLkdVfy', 'seller', '(31) 97776-3333', '10.101.010/0001-10');
 
 -- Lojas (sellers)
 INSERT INTO sellers (user_id, store_name, store_slug, description, logo_url, banner_url, city, state, verified, rating) VALUES
-(5,  'Fazenda do Vale',    'fazenda-do-vale',    'Produtor rural desde 1980. Grãos, ração e insumos direto do produtor para o produtor.',                     'https://ui-avatars.com/api/?name=Fazenda+Vale&background=16a34a&color=fff&size=200', 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200', 'Ribeirão Preto',  'SP', TRUE,  4.80),
-(6,  'AgroLoja',           'agroloja',           'Loja completa para o agronegócio. Equipamentos, ferramentas e insumos com entrega para todo o Brasil.',      'https://ui-avatars.com/api/?name=Agro+Loja&background=15803d&color=fff&size=200',    'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1200', 'Uberlândia',      'MG', TRUE,  4.70),
-(7,  'Sementes Brasil',    'sementes-brasil',    'Sementes certificadas de alta produtividade. Soja, milho, algodão e pastagens.',                              'https://ui-avatars.com/api/?name=Sementes+Brasil&background=ea580c&color=fff&size=200','https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1200', 'Goiânia',         'GO', TRUE,  4.90),
-(8,  'Máquinas do Campo',  'maquinas-do-campo',  'Tratores, colheitadeiras e implementos novos e usados com garantia de fábrica.',                              'https://ui-avatars.com/api/?name=Maquinas+Campo&background=b45309&color=fff&size=200', 'https://images.unsplash.com/photo-1591462391731-3b18adc94077?w=1200', 'Uberaba',         'MG', TRUE,  4.60),
-(9,  'Defensivos Premium', 'defensivos-premium', 'Defensivos agrícolas registrados no MAPA. Consultoria técnica inclusa.',                                        'https://ui-avatars.com/api/?name=Defensivos+Premium&background=b91c1c&color=fff&size=200','https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200', 'Maringá',         'PR', TRUE,  4.75),
-(10, 'Ração Forte',        'racao-forte',        'Ração de alta performance para bovinos, equinos, suínos e aves.',                                              'https://ui-avatars.com/api/?name=Racao+Forte&background=7c3aed&color=fff&size=200',   'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=1200', 'São Paulo',       'SP', TRUE,  4.55),
-(11, 'Veterinária Rural',  'veterinaria-rural',  'Medicamentos veterinários, vacinas e suplementação animal.',                                                   'https://ui-avatars.com/api/?name=Vet+Rural&background=0891b2&color=fff&size=200',    'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200', 'Anápolis',        'GO', TRUE,  4.85),
-(12, 'Irrigação Total',    'irrigacao-total',    'Soluções completas em irrigação: pivôs, gotejamento e aspersão.',                                              'https://ui-avatars.com/api/?name=Irrigacao+Total&background=0284c7&color=fff&size=200','https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1200', 'Londrina',        'PR', FALSE, 4.40),
-(13, 'Adubos & Cia',       'adubos-cia',         'Fertilizantes, adubos orgânicos e corretivos de solo.',                                                         'https://ui-avatars.com/api/?name=Adubos+Cia&background=059669&color=fff&size=200',   'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=1200', 'Cuiabá',          'MT', TRUE,  4.65),
-(14, 'Ferramentas Agro',   'ferramentas-agro',   'Ferramentas manuais e elétricas para o trabalho rural.',                                                        'https://ui-avatars.com/api/?name=Ferramentas+Agro&background=64748b&color=fff&size=200','https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200', 'Belo Horizonte',  'MG', FALSE, 4.30);
+(5,  'TechZone Eletrônicos','techzone-eletronicos','Eletrônicos, smartphones, notebooks e gadgets das melhores marcas com garantia oficial e entrega rápida.',                            'https://ui-avatars.com/api/?name=TechZone&background=4338ca&color=fff&size=200',     'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=1200', 'São Paulo',     'SP', TRUE,  4.85),
+(6,  'Trend Modas',         'trend-modas',         'Moda feminina, masculina e infantil. Roupas, calçados e acessórios das tendências da estação.',                                       'https://ui-avatars.com/api/?name=Trend+Modas&background=db2777&color=fff&size=200',  'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200', 'São Paulo',     'SP', TRUE,  4.72),
+(7,  'Casa Bonita Decor',   'casa-bonita-decor',   'Tudo para sua casa: móveis, decoração, organização, utilidades domésticas e iluminação.',                                              'https://ui-avatars.com/api/?name=Casa+Bonita&background=0d9488&color=fff&size=200', 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200', 'Rio de Janeiro', 'RJ', TRUE,  4.68),
+(8,  'Glow Beauty',         'glow-beauty',         'Cosméticos, perfumes, maquiagem, skincare e cuidados pessoais. Marcas nacionais e importadas.',                                       'https://ui-avatars.com/api/?name=Glow+Beauty&background=e11d48&color=fff&size=200', 'https://images.unsplash.com/photo-1522335789203-aaa312bb1c43?w=1200', 'Belo Horizonte','MG', TRUE,  4.90),
+(9,  'Sport Power',         'sport-power',         'Artigos esportivos, fitness, suplementação, roupas e calçados para todos os esportes.',                                                 'https://ui-avatars.com/api/?name=Sport+Power&background=ea580c&color=fff&size=200', 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200', 'Curitiba',      'PR', TRUE,  4.65),
+(10, 'Mundo Pet',           'mundo-pet',           'Pet shop completo: ração, brinquedos, acessórios, banho e tosa, casinhas e cuidados para cães e gatos.',                              'https://ui-avatars.com/api/?name=Mundo+Pet&background=2563eb&color=fff&size=200',   'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200', 'São Paulo',     'SP', TRUE,  4.78),
+(11, 'Livraria Páginas',    'livraria-paginas',    'Livros nacionais e importados, mangás, infantis, didáticos e literatura. Frete grátis acima de R$99.',                                'https://ui-avatars.com/api/?name=Paginas&background=78350f&color=fff&size=200',     'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200', 'Porto Alegre',  'RS', TRUE,  4.88),
+(12, 'Brinque Mais',        'brinque-mais',        'Brinquedos educativos, jogos de tabuleiro, bonecas, carrinhos e acessórios para todas as idades.',                                     'https://ui-avatars.com/api/?name=Brinque+Mais&background=d97706&color=fff&size=200','https://images.unsplash.com/photo-1558877385-8c1f8b9c2d9d?w=1200', 'Londrina',      'PR', TRUE,  4.55),
+(13, 'Sabor & Cia',         'sabor-e-cia',         'Mercearia online: alimentos especiais, bebidas, cestas gourmet, doces e produtos saudáveis.',                                          'https://ui-avatars.com/api/?name=Sabor+Cia&background=059669&color=fff&size=200',   'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200', 'Recife',        'PE', TRUE,  4.70),
+(14, 'AutoParts Pro',       'autoparts-pro',       'Peças automotivas, acessórios, óleos lubrificantes e itens para som e estética veicular.',                                              'https://ui-avatars.com/api/?name=AutoParts&background=475569&color=fff&size=200',  'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=1200', 'Belo Horizonte','MG', FALSE, 4.45);
 
 -- ============================================================
--- Produtos (catálogo amplo - ~42 produtos distribuídos)
+-- Produtos (~42 produtos distribuídos)
 -- ============================================================
 
--- Seller 1: Fazenda do Vale (grãos/ração/insumos)
+-- Seller 1: TechZone Eletrônicos
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(1, 'Saco de Milho 50kg',          'Milho em grão selecionado para ração animal. Sacos de 50kg, safra atual.',                               129.90,  149.90, 'https://images.unsplash.com/photo-1601593768799-76d3ca1f3b82?w=600', 250, 'Grãos',   TRUE,  TRUE),
-(1, 'Soja em Grão 60kg',           'Soja em grão, ideal para processamento e ração. Sacos de 60kg.',                                          210.00,  NULL,   'https://images.unsplash.com/photo-1580420876508-84a3b6b5be91?w=600', 180, 'Grãos',   TRUE,  FALSE),
-(1, 'Adubo Orgânico 25kg',         'Adubo orgânico composto, rico em nutrientes. Ideal para hortas e pomares.',                                89.50,   NULL,   'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600', 120, 'Insumos', FALSE, FALSE),
-(1, 'Feno de Tifton 20kg',         'Feno de Tifton 85 de alta qualidade. Fardo de 20kg.',                                                      79.90,   89.90,  'https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?w=600', 90,  'Ração',   TRUE,  TRUE);
+(1, 'Smartphone Galaxy A54 128GB',     'Smartphone Android com tela 6.4", câmera tripla 50MP, 8GB RAM e 128GB de armazenamento.',                  1899.00, 2299.00, 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600', 35, 'Eletrônicos', TRUE, TRUE),
+(1, 'Notebook 15.6" Core i5 8GB SSD',  'Notebook Intel Core i5 11ª geração, 8GB RAM, SSD 512GB e tela full HD 15.6".',                              3299.00, 3899.00, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600', 18, 'Eletrônicos', TRUE, TRUE),
+(1, 'Fone Bluetooth Over-Ear ANC',     'Fone de ouvido sem fio com cancelamento de ruído ativo, bateria de 30h e Bluetooth 5.3.',                  649.00,  799.00,  'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600', 80, 'Eletrônicos', TRUE, FALSE),
+(1, 'Smart TV 50" 4K UHD',             'Smart TV LED 50 polegadas resolução 4K, HDR, sistema operacional próprio e Wi-Fi integrado.',              2499.00, 2899.00, 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600', 22, 'Eletrônicos', FALSE,FALSE),
+(1, 'Smartwatch Fitness com GPS',      'Relógio inteligente com monitor cardíaco, GPS integrado, à prova d''água e bateria de 14 dias.',           499.00,  599.00,  'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600', 60, 'Eletrônicos', TRUE, FALSE);
 
--- Seller 2: AgroLoja (ferramentas/equipamentos)
+-- Seller 2: Trend Modas
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(2, 'Pulverizador Costal 20L',     'Pulverizador manual para aplicação de defensivos. Reservatório de 20 litros.',                            249.90,  299.90, 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600', 60, 'Equipamentos', TRUE,  TRUE),
-(2, 'Kit Ferramentas Agro',        'Kit com enxada, foice, pá e ancinho em aço carbono.',                                                      189.00,  NULL,   'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600', 80, 'Ferramentas',  FALSE, FALSE),
-(2, 'Botina de Segurança',         'Botina de couro com biqueira de aço, certificada CA. Tamanhos 38 a 46.',                                  219.90,  249.90, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600', 150,'EPI',          TRUE,  FALSE),
-(2, 'Cortador de Grama 1500W',     'Cortador de grama elétrico 1500W com coletor de 50L.',                                                     599.00,  799.00, 'https://images.unsplash.com/photo-1610878180933-1165c7e05b17?w=600', 25, 'Equipamentos', FALSE, TRUE);
+(2, 'Camiseta Básica Premium Algodão', 'Camiseta unissex 100% algodão pima, gola redonda, modelagem regular. Tamanhos P ao GG.',                  79.90,   99.90,   'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600', 200, 'Moda', TRUE,  TRUE),
+(2, 'Calça Jeans Skinny Feminina',     'Calça jeans skinny cintura alta, lavagem escura, com elastano para caimento perfeito.',                    159.90,  199.90,  'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600', 120, 'Moda', TRUE,  FALSE),
+(2, 'Tênis Casual Branco Unissex',     'Tênis casual em couro sintético, solado emborrachado e palmilha confortável.',                            249.00,  299.00,  'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600', 90,  'Moda', FALSE, TRUE),
+(2, 'Vestido Floral Midi',             'Vestido midi estampa floral, alças finas, tecido fluido e leve para o dia a dia.',                         189.90,  NULL,    'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', 75,  'Moda', TRUE,  FALSE),
+(2, 'Jaqueta Jeans Oversized',         'Jaqueta jeans modelagem ampla, lavagem média, ideal para compor looks descontraídos.',                    219.00,  259.00,  'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600', 65,  'Moda', FALSE, FALSE);
 
--- Seller 3: Sementes Brasil
+-- Seller 3: Casa Bonita Decor
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(3, 'Semente de Soja 20kg',        'Sementes de soja certificadas, alta produtividade. Variedade BRS 8391.',                                   399.90,  459.90, 'https://images.unsplash.com/photo-1580420876508-84a3b6b5be91?w=600', 120, 'Sementes', TRUE, TRUE),
-(3, 'Semente de Milho Híbrido 20kg','Milho híbrido alta performance, resistente a pragas.',                                                    520.00,  NULL,   'https://images.unsplash.com/photo-1601593768799-76d3ca1f3b82?w=600', 100, 'Sementes', TRUE, TRUE),
-(3, 'Semente de Brachiaria 20kg',  'Semente de pastagem Brachiaria brizantha, alta germinação.',                                                289.90,  NULL,   'https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?w=600',  85, 'Sementes', FALSE, FALSE),
-(3, 'Semente de Algodão 15kg',     'Algodão variedade BRS 368, resistente ao bicudo.',                                                          349.00,  399.00, 'https://images.unsplash.com/photo-1561023367-50a6e2b4c4b7?w=600',     50, 'Sementes', FALSE, FALSE),
-(3, 'Semente de Feijão Carioca 10kg','Feijão carioca selecionado, ciclo curto.',                                                                 149.90,  NULL,   'https://images.unsplash.com/photo-1599401492055-97a3ccb2c1a8?w=600',  75, 'Sementes', TRUE, FALSE);
+(3, 'Sofá 3 Lugares Retrátil Cinza',   'Sofá retrátil e reclinável 3 lugares, tecido suede, espuma D33 e estrutura em madeira maciça.',         2299.00, 2799.00, 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600', 12,  'Casa', FALSE, TRUE),
+(3, 'Luminária de Mesa LED Articulada','Luminária com braço articulado, LED ajustável (3 temperaturas) e porta USB.',                            189.00,  229.00,  'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600', 80,  'Casa', TRUE,  FALSE),
+(3, 'Jogo de Cama Queen 200 Fios',     'Jogo de cama queen size 4 peças, percal 200 fios, 100% algodão. Várias estampas.',                       249.90,  299.90,  'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600', 100, 'Casa', TRUE,  TRUE),
+(3, 'Mesa de Jantar 6 Lugares',        'Mesa de jantar em MDF revestido, tampo de vidro temperado 6mm, pés metálicos.',                           1599.00, NULL,    'https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=600', 18,  'Casa', FALSE, FALSE),
+(3, 'Vaso Decorativo Cerâmica',        'Vaso decorativo grande em cerâmica artesanal, ideal para sala e entrada.',                                149.00,  179.00,  'https://images.unsplash.com/photo-1602874801007-aa53e6d9b246?w=600', 60,  'Casa', TRUE,  FALSE);
 
--- Seller 4: Máquinas do Campo
+-- Seller 4: Glow Beauty
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(4, 'Motosserra 62cc Profissional','Motosserra a gasolina 62cc, sabre de 20\", uso profissional.',                                            1890.00, 2190.00, 'https://images.unsplash.com/photo-1617170788617-7e9c17e7ea12?w=600', 15, 'Máquinas', FALSE, TRUE),
-(4, 'Roçadeira 43cc',              'Roçadeira lateral a gasolina 43cc com arnês profissional.',                                               1290.00, 1490.00, 'https://images.unsplash.com/photo-1598512199776-e0e136c4356b?w=600', 20, 'Máquinas', FALSE, FALSE),
-(4, 'Gerador a Diesel 5kVA',       'Gerador trifásico a diesel 5kVA com partida elétrica.',                                                   6490.00, NULL,    'https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=600',  8, 'Máquinas', FALSE, TRUE),
-(4, 'Microtrator 12CV',            'Microtrator a diesel 12CV com enxada rotativa inclusa.',                                                  9990.00, NULL,    'https://images.unsplash.com/photo-1591462391731-3b18adc94077?w=600',  5, 'Máquinas', FALSE, FALSE),
-(4, 'Carreta Basculante 1000kg',   'Carreta agrícola basculante, capacidade 1000kg.',                                                         2890.00, 3290.00, 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600',  12,'Máquinas', FALSE, FALSE);
+(4, 'Perfume Floral Importado 100ml',  'Perfume feminino notas florais e amadeiradas, eau de parfum, fixação de até 12h.',                       349.00,  429.00,  'https://images.unsplash.com/photo-1541643600914-78b084683601?w=600', 50,  'Beleza', TRUE,  TRUE),
+(4, 'Kit Skincare Anti-idade',         'Kit completo: limpador facial, sérum vitamina C, hidratante e protetor solar FPS50.',                    289.90,  349.90,  'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600', 80,  'Beleza', TRUE,  TRUE),
+(4, 'Paleta de Sombras 24 Cores',      'Paleta de maquiagem profissional com 24 cores opacas e cintilantes, alta pigmentação.',                  159.00,  189.00,  'https://images.unsplash.com/photo-1583241800698-9c2e0044f5cb?w=600', 120, 'Beleza', TRUE,  FALSE),
+(4, 'Secador Profissional 2000W',      'Secador de cabelo com íons negativos, 2000W, 3 temperaturas e 2 velocidades.',                            199.00,  259.00,  'https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=600', 45,  'Beleza', FALSE, FALSE),
+(4, 'Batom Líquido Matte Kit 5un',     'Kit com 5 batons líquidos efeito matte, longa duração, fórmula vegana.',                                  129.90,  NULL,    'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600', 200, 'Beleza', TRUE,  FALSE);
 
--- Seller 5: Defensivos Premium
+-- Seller 5: Sport Power
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(5, 'Herbicida Glifosato 20L',     'Herbicida sistêmico não seletivo, ação total. Embalagem 20L.',                                            449.00,  499.00, 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600', 200, 'Defensivos', TRUE, TRUE),
-(5, 'Fungicida Sistêmico 5L',      'Controle de ferrugem asiática e doenças foliares. 5 litros.',                                             689.00,  NULL,   'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600', 150, 'Defensivos', TRUE, FALSE),
-(5, 'Inseticida Piretróide 1L',    'Controle de pragas em lavouras de grãos e hortaliças.',                                                  259.90,  299.90, 'https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?w=600', 240, 'Defensivos', FALSE, FALSE),
-(5, 'Adjuvante Óleo Vegetal 20L',  'Óleo vegetal emulsionável para aplicação com defensivos.',                                                189.90,  NULL,   'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600',  90, 'Defensivos', TRUE, FALSE);
+(5, 'Tênis Running Profissional',      'Tênis para corrida com amortecimento em gel, cabedal respirável e solado durável.',                       499.00,  599.00,  'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600', 70,  'Esportes', TRUE, TRUE),
+(5, 'Halteres Ajustáveis 24kg',        'Par de halteres ajustáveis até 24kg cada, com sistema de troca rápida de discos.',                        899.00,  1099.00, 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600', 25,  'Esportes', FALSE,TRUE),
+(5, 'Bicicleta Aro 29 21 Marchas',     'Bicicleta MTB aro 29 com 21 marchas Shimano, freio a disco e suspensão dianteira.',                       1799.00, 2099.00, 'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=600', 14,  'Esportes', FALSE,FALSE),
+(5, 'Whey Protein 900g Chocolate',     'Whey protein concentrado, sabor chocolate, 24g de proteína por dose.',                                    189.90,  NULL,    'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=600', 150, 'Esportes', TRUE, FALSE),
+(5, 'Esteira Elétrica Dobrável',       'Esteira elétrica residencial dobrável, motor 2.5 HP, velocidade até 14km/h.',                              2299.00, 2699.00, 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600', 8,   'Esportes', FALSE,FALSE);
 
--- Seller 6: Ração Forte
+-- Seller 6: Mundo Pet
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(6, 'Ração Bovina Premium 40kg',   'Ração de alta performance para bovinos de corte e leite.',                                                 210.00,  240.00, 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600', 120, 'Ração', TRUE, TRUE),
-(6, 'Ração Equina 30kg',           'Ração completa para equinos adultos. 30kg.',                                                              179.00,  199.00, 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600',  85, 'Ração', TRUE, FALSE),
-(6, 'Ração Suínos Crescimento 25kg','Ração balanceada para suínos em crescimento.',                                                           139.90,  NULL,    'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600', 100, 'Ração', FALSE, FALSE),
-(6, 'Ração Aves Postura 25kg',     'Ração para galinhas poedeiras, rica em cálcio.',                                                          119.00,  NULL,    'https://images.unsplash.com/photo-1551199769-7e0b91d70d1c?w=600',   90, 'Ração', FALSE, TRUE),
-(6, 'Sal Mineral Bovino 30kg',     'Suplemento mineral para gado de corte e leite.',                                                          159.00,  NULL,    'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600', 140, 'Ração', TRUE,  FALSE);
+(6, 'Ração Premium Cães Adultos 15kg', 'Ração super premium para cães adultos de raças médias e grandes, sabor frango.',                          229.00,  259.00,  'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600', 90,  'Pet', TRUE,  TRUE),
+(6, 'Caminha Pet Tamanho M',           'Cama acolchoada para pets de porte médio, tecido lavável e antiderrapante.',                              159.00,  199.00,  'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600', 60,  'Pet', TRUE,  FALSE),
+(6, 'Brinquedo Mordedor Dental',       'Brinquedo de borracha resistente para cães, ajuda na higiene bucal e entretenimento.',                    49.90,   NULL,    'https://images.unsplash.com/photo-1535930891776-0c2dfb7fda1a?w=600', 200, 'Pet', FALSE, FALSE),
+(6, 'Areia Higiênica Gatos 12kg',      'Areia sanitária para gatos, granulada, alta absorção e controle de odor por 30 dias.',                    79.90,   89.90,   'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=600', 130, 'Pet', TRUE,  TRUE),
+(6, 'Coleira com Identificação',       'Coleira ajustável em nylon resistente, com plaquinha personalizada inclusa.',                              59.00,   NULL,    'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600', 110, 'Pet', FALSE, FALSE);
 
--- Seller 7: Veterinária Rural
+-- Seller 7: Livraria Páginas
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(7, 'Vermífugo Bovino 1L',         'Vermífugo de amplo espectro para bovinos. 1 litro trata 50 animais.',                                      289.00,  329.00, 'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600', 60, 'Veterinária', TRUE, TRUE),
-(7, 'Vacina Aftosa 500ml',         'Vacina contra febre aftosa, aplicação obrigatória.',                                                     149.90,  NULL,   'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600', 80, 'Veterinária', TRUE, FALSE),
-(7, 'Antibiótico Injetável 250ml', 'Antibiótico de amplo espectro para uso veterinário.',                                                    229.00,  269.00, 'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600', 55, 'Veterinária', FALSE, FALSE),
-(7, 'Kit Seringas Automáticas',    'Kit 3 seringas automáticas de 2ml, 5ml e 10ml.',                                                          349.00,  NULL,   'https://images.unsplash.com/photo-1632053002431-b66b7d30fe28?w=600', 40, 'Veterinária', TRUE, FALSE);
+(7, 'O Hobbit - J.R.R. Tolkien',       'Edição capa dura ilustrada da clássica obra de fantasia. Tradução revisada.',                              79.90,   99.90,   'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600', 60,  'Livros', TRUE,  TRUE),
+(7, 'Box Trilogia Senhor dos Anéis',   'Box com os 3 volumes da saga, capa dura e papel pólen. Edição comemorativa.',                              249.00,  329.00,  'https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=600', 30,  'Livros', TRUE,  TRUE),
+(7, 'Sapiens - Yuval Noah Harari',     'Uma breve história da humanidade. Bestseller traduzido em mais de 60 idiomas.',                            54.90,   69.90,   'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=600', 80,  'Livros', TRUE,  FALSE),
+(7, 'Mangá One Piece Vol. 1',          'Primeiro volume da saga mais longa dos mangás, 200+ páginas em alta qualidade.',                          29.90,   NULL,    'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600', 150, 'Livros', FALSE, FALSE),
+(7, 'Atomic Habits - James Clear',     'Livro de produtividade pessoal com método para construir bons hábitos.',                                   49.90,   59.90,   'https://images.unsplash.com/photo-1589998059171-988d887df646?w=600', 100, 'Livros', TRUE,  FALSE);
 
--- Seller 8: Irrigação Total
+-- Seller 8: Brinque Mais
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(8, 'Kit Irrigação Gotejamento 100m','Kit completo para irrigação por gotejamento até 100m de linha.',                                         599.00,  699.00, 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=600', 30, 'Irrigação', FALSE, TRUE),
-(8, 'Aspersor Setorial 3/4\"',     'Aspersor setorial de 3/4 polegadas, alcance 12m.',                                                         49.90,   NULL,   'https://images.unsplash.com/photo-1508504311323-1d3c22a8f9b4?w=600', 200, 'Irrigação', TRUE,  FALSE),
-(8, 'Bomba Submersa 1CV',          'Bomba submersa 1CV monofásica, vazão até 3000L/h.',                                                       1290.00, 1490.00, 'https://images.unsplash.com/photo-1626001554762-60da8d36e5db?w=600', 18, 'Irrigação', FALSE, FALSE),
-(8, 'Mangueira Agrícola 100m',     'Mangueira flexível 1\" para irrigação, rolo de 100m.',                                                    389.00,  NULL,   'https://images.unsplash.com/photo-1508504311323-1d3c22a8f9b4?w=600',  45, 'Irrigação', TRUE,  FALSE);
+(8, 'LEGO Classic 484 peças',          'Caixa de LEGO clássico com 484 peças coloridas, estimula a criatividade. 4+ anos.',                       249.00,  299.00,  'https://images.unsplash.com/photo-1572375992501-4b0892d50c69?w=600', 50,  'Brinquedos', TRUE,  TRUE),
+(8, 'Boneca Articulada Premium',       'Boneca de 30cm com cabelo escovável, articulações móveis e roupas inclusas.',                              129.00,  159.00,  'https://images.unsplash.com/photo-1558877385-8c1f8b9c2d9d?w=600', 80,  'Brinquedos', TRUE,  FALSE),
+(8, 'Carrinho Hot Wheels 10 unid',     'Pacote com 10 carrinhos colecionáveis, escala 1:64. Modelos sortidos.',                                    79.90,   99.90,   'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=600', 200, 'Brinquedos', FALSE, TRUE),
+(8, 'Jogo de Tabuleiro Estratégia',    'Jogo de estratégia familiar para 2 a 6 jogadores, partidas de 60 minutos.',                                149.90,  179.90,  'https://images.unsplash.com/photo-1585504198199-20277593b94f?w=600', 70,  'Brinquedos', FALSE, FALSE),
+(8, 'Pelúcia Urso Gigante 80cm',       'Urso de pelúcia tamanho gigante, ultra macio, recheio antialérgico.',                                      189.00,  219.00,  'https://images.unsplash.com/photo-1582457601528-849c4063d70e?w=600', 35,  'Brinquedos', TRUE,  FALSE);
 
--- Seller 9: Adubos & Cia
+-- Seller 9: Sabor & Cia
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(9, 'NPK 20-05-20 50kg',           'Fertilizante NPK balanceado para grãos e pastagens.',                                                      289.00,  329.00, 'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600', 300, 'Fertilizantes', TRUE, TRUE),
-(9, 'Ureia 50kg',                  'Fertilizante nitrogenado de alta concentração.',                                                          199.00,  NULL,    'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600', 250, 'Fertilizantes', TRUE, FALSE),
-(9, 'Calcário Dolomítico 30kg',    'Corretivo de solo, neutraliza acidez e fornece cálcio/magnésio.',                                         59.00,   NULL,    'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600', 400, 'Fertilizantes', FALSE, FALSE),
-(9, 'Húmus de Minhoca 20kg',       'Adubo orgânico premium, 100% natural.',                                                                    89.90,   109.90,  'https://images.unsplash.com/photo-1628352081500-01a91a3d8eab?w=600', 150, 'Fertilizantes', TRUE, TRUE);
+(9, 'Cesta Gourmet Premium',           'Cesta com 12 itens gourmet selecionados: vinho, queijos, geleias e biscoitos finos.',                     349.00,  429.00,  'https://images.unsplash.com/photo-1607920591413-4ec007e70023?w=600', 25,  'Alimentos', FALSE, TRUE),
+(9, 'Café Especial Torrado 500g',      'Café 100% arábica, torra média, notas de chocolate e caramelo. Embalagem 500g.',                          39.90,   49.90,   'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600', 150, 'Alimentos', TRUE,  TRUE),
+(9, 'Azeite Extra Virgem 500ml',       'Azeite de oliva extra virgem importado, baixa acidez, garrafa de 500ml.',                                 49.90,   NULL,    'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600', 180, 'Alimentos', TRUE,  FALSE),
+(9, 'Kit Chocolates Importados',       'Kit com 8 chocolates premium importados, várias intensidades de cacau.',                                  119.00,  149.00,  'https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=600', 80,  'Alimentos', FALSE, FALSE),
+(9, 'Mel Orgânico Silvestre 1kg',      'Mel 100% puro orgânico silvestre, embalagem de 1kg, sem aditivos.',                                       69.00,   NULL,    'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600', 90,  'Alimentos', TRUE,  FALSE);
 
--- Seller 10: Ferramentas Agro
+-- Seller 10: AutoParts Pro
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(10, 'Enxada Larga 26cm',           'Enxada larga em aço carbono, cabo de madeira 1,50m.',                                                     79.90,   NULL,   'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600', 180, 'Ferramentas', FALSE, FALSE),
-(10, 'Foice Roçadeira',             'Foice em aço temperado para roçar mato alto.',                                                           59.00,   69.00,  'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600', 120, 'Ferramentas', TRUE,  FALSE),
-(10, 'Carrinho de Mão 65L',         'Carrinho de mão reforçado, caçamba de 65 litros.',                                                       179.00,  209.00, 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600',  80, 'Ferramentas', FALSE, TRUE),
-(10, 'Tesoura de Poda Profissional','Tesoura de poda com lâminas em aço inox.',                                                               129.90,  NULL,   'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600',  95, 'Ferramentas', TRUE,  FALSE);
-
--- Carrinhos dos compradores
-INSERT INTO carts (user_id) VALUES (2), (3), (4);
-
--- ============================================================
--- View pública de produtos (com dados da loja)
--- ============================================================
-CREATE OR REPLACE VIEW v_products_public AS
-SELECT
-    p.id, p.name, p.description, p.price, p.compare_price, p.image_url, p.stock,
-    p.category, p.free_shipping, p.featured, p.active, p.created_at,
-    s.id   AS seller_id, s.store_name, s.store_slug, s.city, s.state,
-    s.verified AS seller_verified, s.rating AS seller_rating
-FROM products p
-JOIN sellers  s ON s.id = p.seller_id
-WHERE p.active = TRUE;
-
--- ============================================================
--- Fim do schema
--- ============================================================
+(10, 'Óleo Motor 5W30 Sintético 1L',   'Óleo lubrificante sintético 5W30, indicado para motores modernos a gasolina e f

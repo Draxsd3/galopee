@@ -338,7 +338,7 @@ function AddressesTab({ userId }) {
     return (
         <Panel title="Endereços" description="Dados salvos apenas neste navegador para facilitar testes.">
             <form onSubmit={handleSubmit} className="grid gap-4 md:grid-cols-2">
-                <input className="input" placeholder="Apelido, ex.: Fazenda" value={form.label} onChange={(e) => setForm({ ...form, label: e.target.value })} />
+                <input className="input" placeholder="Apelido, ex.: Casa" value={form.label} onChange={(e) => setForm({ ...form, label: e.target.value })} />
                 <input className="input" placeholder="CEP" value={form.zip} onChange={(e) => setForm({ ...form, zip: e.target.value })} required />
                 <input className="input md:col-span-2" placeholder="Rua, número e complemento" value={form.street} onChange={(e) => setForm({ ...form, street: e.target.value })} required />
                 <input className="input" placeholder="Cidade" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} required />
@@ -485,7 +485,7 @@ function SellerTab({ user, becomeSeller, navigate, setTab }) {
                             className="input"
                             value={storeName}
                             onChange={(e) => setStoreName(e.target.value)}
-                            placeholder="Ex.: Fazenda Boa Safra"
+                            placeholder="Ex.: Minha Loja"
                             minLength={2}
                             required
                         />
@@ -509,3 +509,4 @@ function SellerTab({ user, becomeSeller, navigate, setTab }) {
         </div>
     );
 }
+          

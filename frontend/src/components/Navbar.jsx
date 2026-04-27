@@ -55,7 +55,7 @@ export default function Navbar() {
                             <div className="min-w-0">
                                 <div className="font-display text-3xl leading-none text-brand-700 md:text-4xl">Galopee</div>
                                 <div className="mt-0.5 text-[9px] font-bold uppercase tracking-[0.22em] text-slate-500 md:text-[11px]">
-                                    Marketplace agro
+                                    Marketplace
                                 </div>
                             </div>
                         </Link>
@@ -228,3 +228,4 @@ function getInitials(name = '') {
     if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
     return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
 }
+     

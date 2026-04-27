@@ -3,12 +3,12 @@ import { ArrowRight } from 'lucide-react';
 
 const VARIANTS = {
     greenLight: {
-        tint: 'from-[#7cb342]/85 via-[#5f8f34]/80 to-[#3f6821]/85',
-        btnBg: 'bg-white text-[#4a7a1f] hover:bg-stone-50',
+        tint: 'from-[#6366f1]/85 via-[#4f46e5]/80 to-[#3730a3]/85',
+        btnBg: 'bg-white text-[#4338ca] hover:bg-stone-50',
     },
     green: {
-        tint: 'from-brand-800/90 via-brand-800/75 to-brand-900/85',
-        btnBg: 'bg-white text-brand-800 hover:bg-stone-50',
+        tint: 'from-brand-700/90 via-brand-700/75 to-brand-900/85',
+        btnBg: 'bg-white text-brand-700 hover:bg-stone-50',
     },
     purple: {
         tint: 'from-[#7e22ce]/85 via-[#6b21a8]/80 to-[#4c1d95]/85',
@@ -19,8 +19,8 @@ const VARIANTS = {
         btnBg: 'bg-white text-[#a66502] hover:bg-stone-50',
     },
     dark: {
-        tint: 'from-[#1b3623]/85 via-[#132a1a]/85 to-[#0c1d11]/90',
-        btnBg: 'bg-[#f1c56a] text-[#24482f] hover:bg-[#f5d28a]',
+        tint: 'from-[#1e1b4b]/85 via-[#1e1b4b]/85 to-[#0f0d2c]/90',
+        btnBg: 'bg-[#f1c56a] text-[#1e1b4b] hover:bg-[#f5d28a]',
     },
 };
 

@@ -115,8 +115,8 @@ export default function Stores() {
             <section className="container-page pt-6">
                 <div className="relative overflow-hidden rounded-[28px] bg-[#ece9e4] shadow-card">
                     <img
-                        src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1800&q=80"
-                        alt="Campo agrícola"
+                        src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1800&q=80"
+                        alt="Vitrine de lojas Galopee"
                         className="absolute inset-0 h-full w-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-brand-900/85 via-brand-900/55 to-brand-900/25" />
@@ -316,5 +316,4 @@ function FilterChip({ active, onClick, children }) {
         >
             {children}
         </button>
-    );
-}
+   

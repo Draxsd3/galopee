@@ -15,8 +15,8 @@ const IMAGE_VARIANTS = {
 const CTA_VARIANTS = {
     green: {
         titleBar: 'bg-white text-brand-800',
-        body: 'bg-gradient-to-r from-brand-600 via-brand-700 to-brand-800',
-        btn: 'bg-[#f1c56a] text-[#24482f] hover:bg-[#f5d28a]',
+        body: 'bg-gradient-to-r from-brand-500 via-brand-600 to-brand-800',
+        btn: 'bg-[#f1c56a] text-[#1e1b4b] hover:bg-[#f5d28a]',
     },
     amber: {
         titleBar: 'bg-white text-[#a66502]',

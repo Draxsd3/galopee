@@ -1,20 +1,21 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
-    Sprout, Wheat, Beef, Droplets, SprayCan, Wrench, HardHat, TreePine, Pill, Leaf, LayoutGrid,
+    Smartphone, Shirt, Sofa, Sparkles, Dumbbell, PawPrint,
+    BookOpen, Gamepad2, UtensilsCrossed, Car, LayoutGrid,
 } from 'lucide-react';
 
 const CATEGORIES = [
-    { name: 'Todos',         icon: LayoutGrid },
-    { name: 'Sementes',      icon: Sprout },
-    { name: 'Grãos',         icon: Wheat },
-    { name: 'Ração',         icon: Beef },
-    { name: 'Fertilizantes', icon: Leaf },
-    { name: 'Defensivos',    icon: SprayCan },
-    { name: 'Irrigação',     icon: Droplets },
-    { name: 'Máquinas',      icon: Wrench },
-    { name: 'Ferramentas',   icon: TreePine },
-    { name: 'EPI',           icon: HardHat },
-    { name: 'Veterinária',   icon: Pill },
+    { name: 'Todos',       icon: LayoutGrid },
+    { name: 'Eletrônicos', icon: Smartphone },
+    { name: 'Moda',        icon: Shirt },
+    { name: 'Casa',        icon: Sofa },
+    { name: 'Beleza',      icon: Sparkles },
+    { name: 'Esportes',    icon: Dumbbell },
+    { name: 'Pet',         icon: PawPrint },
+    { name: 'Livros',      icon: BookOpen },
+    { name: 'Brinquedos',  icon: Gamepad2 },
+    { name: 'Alimentos',   icon: UtensilsCrossed },
+    { name: 'Automotivo',  icon: Car },
 ];
 
 export default function CategoryBar() {
@@ -36,7 +37,7 @@ export default function CategoryBar() {
                     <div className="mb-4 flex items-center justify-between gap-3">
                         <div>
                             <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-700">Categorias</p>
-                            <p className="text-sm text-slate-600">Explore por necessidade do campo</p>
+                            <p className="text-sm text-slate-600">Explore tudo o que você precisa em um só lugar</p>
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 xl:grid-cols-11">
@@ -55,6 +56,4 @@ export default function CategoryBar() {
                     </div>
                 </div>
             </div>
-        </section>
-    );
-}
+  
