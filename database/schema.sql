@@ -283,4 +283,28 @@ INSERT INTO products (seller_id, name, description, price, compare_price, image_
 
 -- Seller 10: AutoParts Pro
 INSERT INTO products (seller_id, name, description, price, compare_price, image_url, stock, category, free_shipping, featured) VALUES
-(10, 'Óleo Motor 5W30 Sintético 1L',   'Óleo lubrificante sintético 5W30, indicado para motores modernos a gasolina e f
+(10, 'Óleo Motor 5W30 Sintético 1L',   'Óleo lubrificante sintético 5W30, indicado para motores modernos a gasolina e flex.',                     59.90,   NULL,    'https://images.unsplash.com/photo-1605618826115-fb9ee0e0fbc8?w=600', 200, 'Automotivo', FALSE, FALSE),
+(10, 'Bateria Automotiva 60Ah',        'Bateria 60Ah selada, 12 meses de garantia, indicada para veículos populares.',                            459.00,  529.00,  'https://images.unsplash.com/photo-1605618826115-fb9ee0e0fbc8?w=600', 35,  'Automotivo', FALSE, TRUE),
+(10, 'Kit Limpeza Automotiva',         'Kit completo: shampoo, cera, pretinho, limpa vidros e flanelas. 5 itens.',                                119.90,  149.90,  'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=600', 90,  'Automotivo', TRUE,  TRUE),
+(10, 'Pneu Aro 15 195/65',             'Pneu aro 15 medida 195/65 R15, indicado para veículos médios. 5 anos de garantia.',                       349.00,  399.00,  'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600', 60,  'Automotivo', FALSE, FALSE),
+(10, 'Central Multimídia 9" Android',  'Central multimídia universal tela 9", Android 11, GPS, Bluetooth e câmera de ré.',                         899.00,  1099.00, 'https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=600', 18,  'Automotivo', TRUE,  FALSE);
+
+-- Carrinhos dos compradores
+INSERT INTO carts (user_id) VALUES (2), (3), (4);
+
+-- ============================================================
+-- View pública de produtos (com dados da loja)
+-- ============================================================
+CREATE OR REPLACE VIEW v_products_public AS
+SELECT
+    p.id, p.name, p.description, p.price, p.compare_price, p.image_url, p.stock,
+    p.category, p.free_shipping, p.featured, p.active, p.created_at,
+    s.id   AS seller_id, s.store_name, s.store_slug, s.city, s.state,
+    s.verified AS seller_verified, s.rating AS seller_rating
+FROM products p
+JOIN sellers  s ON s.id = p.seller_id
+WHERE p.active = TRUE;
+
+-- ============================================================
+-- Fim do schema
+-- ============================================================
