@@ -1,13 +1,20 @@
+const dns = require('dns');
 const { Pool } = require('pg');
+
+// Força resolução DNS em IPv4 primeiro.
+// Necessário em ambientes (ex.: Render free tier) que não têm rede IPv6 de saída,
+// evitando ENETUNREACH ao conectar no Supabase/Supavisor.
+dns.setDefaultResultOrder('ipv4first');
 
 const useSSL = String(process.env.DATABASE_SSL || 'false').toLowerCase() === 'true';
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: useSSL ? { rejectUnauthorized: false } : false,
-    max: 10,
+    max: 5,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 10000,
+    keepAlive: true,
 });
 
 pool.on('error', (err) => {
