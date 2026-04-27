@@ -1,16 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
   <title id="title">Galopee Store</title>
-  <desc id="desc">Logo padrao para lojas Galopee.</desc>
+  <desc id="desc">Logo padrão para lojas Galopee.</desc>
   <defs>
-    <linearGradient id="bg" x1="24" x2="216" y1="24" y2="216" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#16a34a"/>
-      <stop offset="1" stop-color="#0f3d24"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#312e81"/>
     </linearGradient>
   </defs>
   <rect width="240" height="240" rx="52" fill="url(#bg)"/>
-  <circle cx="120" cy="120" r="76" fill="none" stroke="#f3c85b" stroke-width="8"/>
-  <path d="M121 75v88" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
-  <path d="M118 111c-28-1-47-16-57-43 30-3 50 12 57 43Z" fill="#9bd65a"/>
-  <path d="M124 124c29-1 50-16 61-43-32-4-54 12-61 43Z" fill="#f3c85b"/>
-  <text x="120" y="174" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800" fill="#fff">GP</text>
+  <circle cx="120" cy="120" r="78" fill="none" stroke="#f1c56a" stroke-width="6" opacity="0.85"/>
+  <text x="120" y="160" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="130" font-weight="900" fill="#ffffff">G</text>
 </svg>

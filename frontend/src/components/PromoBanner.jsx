@@ -3,11 +3,11 @@ import { ArrowRight } from 'lucide-react';
 
 const IMAGE_VARIANTS = {
     points: {
-        src: '/promos/pontos.jpg',
+        src: '/promos/pontos.svg',
         alt: 'Galopee Pontos: acumule pontos a cada compra e troque por beneficios',
     },
     guarantee: {
-        src: '/promos/garantia.jpg',
+        src: '/promos/garantia.svg',
         alt: 'Garantia Galopee: satisfacao garantida ou seu dinheiro de volta',
     },
 };

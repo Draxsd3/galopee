@@ -12,16 +12,16 @@ const heroBackgrounds = [
         alt: 'Hero promocional do marketplace Galopee',
     },
     {
-        image: '/promos/custom/hero-slide-2.png',
-        alt: 'Hero promocional com beneficios do marketplace Galopee',
+        image: '/promos/custom/hero-slide-2.svg',
+        alt: 'Frete gratis em milhares de produtos',
     },
     {
-        image: '/promos/custom/hero-slide-3.png',
-        alt: 'Hero promocional com destaque para ofertas',
+        image: '/promos/custom/hero-slide-3.svg',
+        alt: 'Ofertas ate 50% OFF em produtos selecionados',
     },
     {
-        image: '/promos/custom/hero-slide-4.png',
-        alt: 'Hero promocional com condicoes de pagamento',
+        image: '/promos/custom/hero-slide-4.svg',
+        alt: '12x sem juros em todas as compras',
     },
 ];
 
@@ -455,4 +455,4 @@ export default function Home() {
         </div>
     );
 }
-                                                                                                                                    
+                                                                                                                                                              
