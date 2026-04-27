@@ -8,8 +8,8 @@ import PromoBanner from '../components/PromoBanner';
 
 const heroBackgrounds = [
     {
-        image: '/promos/custom/hero-slide-1.png',
-        alt: 'Hero promocional do marketplace Galopee',
+        image: '/promos/custom/hero-slide-1.svg',
+        alt: 'Tudo num so lugar - Galopee Marketplace',
     },
     {
         image: '/promos/custom/hero-slide-2.svg',
@@ -17,7 +17,7 @@ const heroBackgrounds = [
     },
     {
         image: '/promos/custom/hero-slide-3.svg',
-        alt: 'Ofertas ate 50% OFF em produtos selecionados',
+        alt: 'Mega Ofertas ate 50% OFF em produtos selecionados',
     },
     {
         image: '/promos/custom/hero-slide-4.svg',
@@ -123,20 +123,30 @@ export default function Home() {
                         ))}
 
                         <div className="absolute bottom-4 left-4 z-20 flex flex-col items-start gap-3 md:bottom-5 lg:left-10">
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-wrap items-center gap-2.5 md:gap-3">
                                 <button
                                     onClick={() => setParam('category', 'Todos')}
-                                    className="inline-flex items-center gap-2 rounded-full bg-accent-500 px-4 py-2 text-xs font-bold text-white shadow-lg transition hover:bg-accent-600 md:px-5 md:py-2.5 md:text-sm"
+                                    className="group/cta relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-extrabold text-brand-800 shadow-[0_8px_24px_-6px_rgba(67,56,202,0.55)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_10px_32px_-6px_rgba(67,56,202,0.7)] active:scale-100 md:px-7 md:py-3 md:text-base"
                                 >
-                                    Explorar<span className="hidden sm:inline"> catalogo</span>
-                                    <ArrowRight className="h-4 w-4" />
+                                    <span className="relative z-10 inline-flex items-center gap-2.5">
+                                        Explorar catálogo
+                                        <span className="grid h-7 w-7 place-items-center rounded-full bg-brand-700 text-white transition-transform duration-300 group-hover/cta:translate-x-0.5">
+                                            <ArrowRight className="h-3.5 w-3.5" strokeWidth={3} />
+                                        </span>
+                                    </span>
+                                    <span
+                                        aria-hidden
+                                        className="pointer-events-none absolute inset-y-0 -left-12 w-12 -skew-x-12 bg-gradient-to-r from-transparent via-white/70 to-transparent transition-all duration-700 ease-out group-hover/cta:left-[110%]"
+                                    />
                                 </button>
                                 <Link
                                     to="/register"
-                                    className="inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/15 px-4 py-2 text-xs font-bold text-white shadow-lg backdrop-blur-sm transition hover:bg-white/25 md:px-5 md:py-2.5 md:text-sm"
+                                    className="group/cta2 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-extrabold text-white shadow-md backdrop-blur-md transition-all duration-300 hover:border-white/60 hover:bg-white/20 md:px-6 md:py-3 md:text-base"
                                 >
-                                    <UserPlus className="h-4 w-4" />
-                                    <span className="hidden sm:inline">Quero vender</span>
+                                    <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 ring-1 ring-white/30 transition group-hover/cta2:bg-white/30">
+                                        <UserPlus className="h-3.5 w-3.5" strokeWidth={2.5} />
+                                    </span>
+                                    Quero vender
                                 </Link>
                             </div>
 
@@ -424,26 +434,4 @@ export default function Home() {
                                 <div className="h-48 bg-stone-200" />
                                 <div className="space-y-2 p-5">
                                     <div className="h-4 w-2/3 rounded bg-stone-200" />
-                                    <div className="h-8 w-1/2 rounded bg-stone-200" />
-                                    <div className="h-4 w-full rounded bg-stone-100" />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                ) : products.length === 0 ? (
-                    <div className="card p-12 text-center text-slate-500">
-                        Nenhum produto encontrado. Tente outra busca.
-                        <div className="mt-4">
-                            <Link to="/" className="btn-primary">Ver catalogo completo</Link>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
-                        {productsBeforePromo.map((p) => <ProductCard key={p.id} product={p} />)}
-                        {!isFiltering && gridProducts.length >= 4 && (
-                            <>
-                                <div className="col-span-2">
-                                    <PromoBanner variant="points" to="/" />
-                                </div>
-                                <div className="col-span-2">
-                    
+                                    <div clas
