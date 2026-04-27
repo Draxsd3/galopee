@@ -150,29 +150,14 @@ export default function Home() {
                                 </Link>
                             </div>
 
-                            <div className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-2.5 py-2 shadow-lg backdrop-blur-md">
+                            <div className="flex items-center gap-2 rounded-full bg-black/20 px-3 py-2 backdrop-blur-sm">
                                 {heroBackgrounds.map((bg, index) => (
                                     <button
                                         key={bg.image}
                                         onClick={() => setBgIndex(index)}
-                                        className={`group relative grid h-7 place-items-center rounded-full transition-all duration-500 ease-out ${
-                                            index === bgIndex
-                                                ? 'w-12 bg-white text-brand-700 shadow-md'
-                                                : 'w-7 bg-white/0 text-white/0 hover:bg-white/20'
-                                        }`}
+                                        className={`h-1.5 rounded-full transition-all duration-500 ${index === bgIndex ? 'w-10 bg-[#f1c56a]' : 'w-4 bg-white/40 hover:bg-white/70'}`}
                                         aria-label={`Ir para imagem ${index + 1}`}
-                                        aria-current={index === bgIndex}
-                                    >
-                                        <span className={`text-[11px] font-extrabold transition ${index === bgIndex ? 'opacity-100' : 'opacity-0'}`}>
-                                            {String(index + 1).padStart(2, '0')}
-                                        </span>
-                                        <span
-                                            className={`absolute inset-0 m-auto h-1.5 w-1.5 rounded-full bg-white/70 transition-all duration-300 ${
-                                                index === bgIndex ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
-                                            }`}
-                                            aria-hidden
-                                        />
-                                    </button>
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -434,4 +419,25 @@ export default function Home() {
                                 <div className="h-48 bg-stone-200" />
                                 <div className="space-y-2 p-5">
                                     <div className="h-4 w-2/3 rounded bg-stone-200" />
-                                    <div clas
+                                    <div className="h-8 w-1/2 rounded bg-stone-200" />
+                                    <div className="h-4 w-full rounded bg-stone-100" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : products.length === 0 ? (
+                    <div className="card p-12 text-center text-slate-500">
+                        Nenhum produto encontrado. Tente outra busca.
+                        <div className="mt-4">
+                            <Link to="/" className="btn-primary">Ver catalogo completo</Link>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
+                        {productsBeforePromo.map((p) => <ProductCard key={p.id} product={p} />)}
+                        {!isFiltering && gridProducts.length >= 4 && (
+                            <>
+                                <div className="col-span-2">
+                                    <PromoBanner variant="points" to="/" />
+                                </div>
+                            
