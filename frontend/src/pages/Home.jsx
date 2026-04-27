@@ -140,14 +140,29 @@ export default function Home() {
                                 </Link>
                             </div>
 
-                            <div className="flex items-center gap-2 rounded-full bg-black/20 px-3 py-2 backdrop-blur-sm">
+                            <div className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-2.5 py-2 shadow-lg backdrop-blur-md">
                                 {heroBackgrounds.map((bg, index) => (
                                     <button
                                         key={bg.image}
                                         onClick={() => setBgIndex(index)}
-                                        className={`h-1.5 rounded-full transition-all duration-500 ${index === bgIndex ? 'w-10 bg-[#f1c56a]' : 'w-4 bg-white/40 hover:bg-white/70'}`}
+                                        className={`group relative grid h-7 place-items-center rounded-full transition-all duration-500 ease-out ${
+                                            index === bgIndex
+                                                ? 'w-12 bg-white text-brand-700 shadow-md'
+                                                : 'w-7 bg-white/0 text-white/0 hover:bg-white/20'
+                                        }`}
                                         aria-label={`Ir para imagem ${index + 1}`}
-                                    />
+                                        aria-current={index === bgIndex}
+                                    >
+                                        <span className={`text-[11px] font-extrabold transition ${index === bgIndex ? 'opacity-100' : 'opacity-0'}`}>
+                                            {String(index + 1).padStart(2, '0')}
+                                        </span>
+                                        <span
+                                            className={`absolute inset-0 m-auto h-1.5 w-1.5 rounded-full bg-white/70 transition-all duration-300 ${
+                                                index === bgIndex ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
+                                            }`}
+                                            aria-hidden
+                                        />
+                                    </button>
                                 ))}
                             </div>
                         </div>
@@ -431,28 +446,4 @@ export default function Home() {
                                     <PromoBanner variant="points" to="/" />
                                 </div>
                                 <div className="col-span-2">
-                                    <PromoBanner variant="guarantee" to="/" />
-                                </div>
-                            </>
-                        )}
-                        {productsAfterPromo.map((p) => <ProductCard key={`after-${p.id}`} product={p} />)}
-                    </div>
-                )}
-            </section>
-
-            {!isFiltering && (
-                <section className="container-page pt-8">
-                    <PromoBanner
-                        variant="green"
-                        image="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&q=80"
-                        title="Quer ser um vendedor no Galopee?"
-                        description="Cadastre-se hoje mesmo e comece a vender para todo o Brasil, sem complicacao e com mais visibilidade."
-                        cta="Saiba mais"
-                        to="/register"
-                    />
-                </section>
-            )}
-        </div>
-    );
-}
-                                                                                                                                                              
+                    

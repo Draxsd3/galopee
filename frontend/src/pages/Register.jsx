@@ -191,11 +191,11 @@ export default function Register() {
 
                 <div className="relative hidden min-h-[660px] overflow-hidden bg-brand-900 lg:block">
                     <img
-                        src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1400&q=80"
+                        src="/promos/auth-register.svg"
                         alt=""
                         className="absolute inset-0 h-full w-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/88 via-brand-900/58 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-brand-900/25 to-transparent" />
                     <div className="absolute inset-x-8 bottom-8 text-white">
                         <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-200">
                             Conta única
@@ -212,3 +212,4 @@ export default function Register() {
         </section>
     );
 }
+                                                                    
