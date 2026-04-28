@@ -35,11 +35,11 @@ export default function Login() {
             <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[30px] border border-white bg-white shadow-card lg:grid-cols-[0.95fr_1.05fr]">
                 <div className="relative hidden min-h-[620px] overflow-hidden bg-brand-900 lg:block">
                     <img
-                        src="/promos/auth-login.svg"
+                        src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1400&q=80"
                         alt=""
                         className="absolute inset-0 h-full w-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-900/85 via-brand-900/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/55 to-brand-800/15" />
                     <div className="absolute inset-x-8 bottom-8 text-white">
                         <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-200">
                             Galopee

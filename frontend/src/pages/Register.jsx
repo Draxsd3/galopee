@@ -191,11 +191,11 @@ export default function Register() {
 
                 <div className="relative hidden min-h-[660px] overflow-hidden bg-brand-900 lg:block">
                     <img
-                        src="/promos/auth-register.svg"
+                        src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=1400&q=80"
                         alt=""
                         className="absolute inset-0 h-full w-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-brand-900/25 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-brand-900/55 to-transparent" />
                     <div className="absolute inset-x-8 bottom-8 text-white">
                         <p className="text-xs font-bold uppercase tracking-[0.22em] text-accent-200">
                             Conta única
