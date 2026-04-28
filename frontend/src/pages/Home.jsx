@@ -313,35 +313,37 @@ export default function Home() {
                                                 to={`/store/${seller.store_slug}`}
                                                 className="group relative flex min-h-[250px] flex-col overflow-hidden rounded-[24px] border border-stone-200 bg-white transition hover:border-brand-300 hover:shadow-md"
                                             >
-                                                <div className="relative h-24 overflow-hidden bg-stone-100">
-                                                    {seller.banner_url ? (
-                                                        <img
-                                                            src={seller.banner_url}
-                                                            alt={seller.store_name}
-                                                            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                                                        />
-                                                    ) : (
-                                                        <div className="h-full w-full bg-gradient-to-br from-brand-700 via-brand-600 to-brand-900" />
-                                                    )}
+                                                <div className="relative h-28 overflow-hidden bg-gradient-to-br from-brand-100 via-brand-50 to-stone-100">
+                                                    <img
+                                                        src={seller.banner_url || 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80'}
+                                                        alt=""
+                                                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                                                        onError={(event) => { event.currentTarget.src = 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80'; }}
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
                                                     {seller.verified && (
-                                                        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-[11px] font-bold text-brand-700 shadow-sm">
-                                                            <Check className="h-3 w-3" strokeWidth={3} />
+                                                        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-brand-700 shadow-sm backdrop-blur">
+                                                            <Check className="h-3 w-3 text-brand-600" strokeWidth={3} />
                                                             Verificada
                                                         </span>
                                                     )}
                                                 </div>
 
-                                                <div className="absolute left-4 top-16 z-20 grid h-16 w-16 place-items-center overflow-hidden rounded-2xl border-4 border-white bg-brand-700 text-lg font-extrabold text-white shadow-md">
-                                                    {seller.logo_url ? (
-                                                        <img
-                                                            src={seller.logo_url}
-                                                            alt={seller.store_name}
-                                                            className="h-full w-full object-contain bg-white p-2"
-                                                            onError={(event) => { event.currentTarget.src = '/stores/logos/galopee-store.svg'; }}
-                                                        />
-                                                    ) : (
-                                                        <span>{sellerInitials(seller.store_name) || 'GP'}</span>
-                                                    )}
+                                                <div className="absolute left-4 top-[80px] z-20">
+                                                    <div className="rounded-full bg-gradient-to-br from-brand-500 via-brand-700 to-brand-900 p-[3px] shadow-xl shadow-brand-900/20">
+                                                        <div className="grid h-[68px] w-[68px] place-items-center overflow-hidden rounded-full border-[3px] border-white bg-white">
+                                                            {seller.logo_url ? (
+                                                                <img
+                                                                    src={seller.logo_url}
+                                                                    alt={seller.store_name}
+                                                                    className="h-full w-full object-cover"
+                                                                    onError={(event) => { event.currentTarget.src = '/stores/logos/galopee-store.svg'; }}
+                                                                />
+                                                            ) : (
+                                                                <span className="text-base font-extrabold text-brand-700">{sellerInitials(seller.store_name) || 'GP'}</span>
+                                                            )}
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div className="flex flex-1 flex-col p-4 pt-14">

@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check, MapPin, Package, Star } from 'lucide-react';
 
+const FALLBACK_BANNER = 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80';
+const FALLBACK_LOGO = '/stores/logos/galopee-store.svg';
+
 export default function SellerCard({ seller }) {
     const initials = (seller.store_name || '?')
         .split(' ')
@@ -16,13 +19,14 @@ export default function SellerCard({ seller }) {
             to={`/store/${seller.store_slug}`}
             className="group relative flex flex-col overflow-hidden rounded-[24px] border border-stone-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-cardHover"
         >
-            <div className="relative h-28 overflow-hidden">
+            <div className="relative h-32 overflow-hidden bg-gradient-to-br from-brand-100 via-brand-50 to-stone-100">
                 <img
-                    src={seller.banner_url || 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80'}
-                    alt={seller.store_name}
+                    src={seller.banner_url || FALLBACK_BANNER}
+                    alt=""
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(event) => { event.currentTarget.src = FALLBACK_BANNER; }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
 
                 {seller.verified && (
                     <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-brand-700 backdrop-blur">
@@ -32,17 +36,24 @@ export default function SellerCard({ seller }) {
                 )}
             </div>
 
-            <div className="absolute left-5 top-20 z-20 grid h-[72px] w-[72px] place-items-center overflow-hidden rounded-[20px] border-4 border-white bg-white text-lg font-extrabold tracking-tight text-slate-800 shadow-md">
-                {seller.logo_url ? (
-                    <img
-                        src={seller.logo_url}
-                        alt={seller.store_name}
-                        className="h-full w-full object-contain p-1.5"
-                        onError={(event) => { event.currentTarget.src = '/stores/logos/galopee-store.svg'; }}
-                    />
-                ) : (
-                    <span>{initials || 'GP'}</span>
-                )}
+            {/* Logo: círculo com ring gradient e shadow */}
+            <div className="absolute left-5 top-[88px] z-20">
+                <div className="rounded-full bg-gradient-to-br from-brand-500 via-brand-700 to-brand-900 p-[3px] shadow-xl shadow-brand-900/20">
+                    <div className="grid h-[78px] w-[78px] place-items-center overflow-hidden rounded-full border-[3px] border-white bg-white">
+                        {seller.logo_url ? (
+                            <img
+                                src={seller.logo_url}
+                                alt={seller.store_name}
+                                className="h-full w-full object-cover"
+                                onError={(event) => { event.currentTarget.src = FALLBACK_LOGO; }}
+                            />
+                        ) : (
+                            <span className="text-xl font-extrabold tracking-tight text-brand-700">
+                                {initials || 'GP'}
+                            </span>
+                        )}
+                    </div>
+                </div>
             </div>
 
             <div className="relative px-5 pb-5 pt-14">
@@ -50,14 +61,12 @@ export default function SellerCard({ seller }) {
                     {seller.store_name}
                 </h3>
 
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
-                    {seller.city && (
-                        <span className="inline-flex items-center gap-1">
-                            <MapPin className="h-3 w-3" />
-                            {seller.city}/{seller.state}
-                        </span>
-                    )}
-                </div>
+                {seller.city && (
+                    <div className="mt-1.5 flex items-center gap-1 text-xs text-slate-500">
+                        <MapPin className="h-3 w-3" />
+                        <span>{seller.city}/{seller.state}</span>
+                    </div>
+                )}
 
                 <div className="mt-4 flex items-center gap-4 rounded-2xl bg-stone-50 px-4 py-2.5 text-xs">
                     <div className="flex items-center gap-1.5">
