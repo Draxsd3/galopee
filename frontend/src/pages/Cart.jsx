@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AlertCircle, Loader2, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { formatPrice } from '../utils/format';
+import { getProductImage } from '../utils/productImage';
 import toast from 'react-hot-toast';
 
 export default function Cart() {
@@ -102,6 +103,7 @@ export default function Cart() {
                             const rowBusy = updatingItemId === item.id;
                             const canDecrease = item.quantity > 1 && !rowBusy;
                             const canIncrease = !unavailable && item.quantity < stock && !rowBusy;
+                            const imageSrc = getProductImage(item.product);
 
                             return (
                                 <div
@@ -111,12 +113,12 @@ export default function Cart() {
                                     }`}
                                 >
                                     <div className="grid gap-4 sm:grid-cols-[96px_minmax(0,1fr)] lg:grid-cols-[96px_minmax(0,1fr)_142px_112px_44px] lg:items-center">
-                                        <div className="grid h-24 w-24 place-items-center overflow-hidden rounded-[18px] bg-stone-100">
-                                            {item.product.image_url ? (
+                                        <div className="grid h-24 w-24 place-items-center overflow-hidden rounded-[18px] bg-white">
+                                            {imageSrc ? (
                                                 <img
-                                                    src={item.product.image_url}
+                                                    src={imageSrc}
                                                     alt={item.product.name}
-                                                    className="h-full w-full object-cover"
+                                                    className="h-full w-full object-contain p-2"
                                                 />
                                             ) : (
                                                 <ShoppingBag className="h-8 w-8 text-slate-300" />

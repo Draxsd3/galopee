@@ -5,7 +5,7 @@ import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import { formatPrice } from '../utils/format';
-import { getProductFallback } from '../utils/productImage';
+import { getProductFallback, getProductImage } from '../utils/productImage';
 import ProductCard from '../components/ProductCard';
 import {
     Check,
@@ -122,7 +122,7 @@ export default function ProductDetail() {
             return;
         }
 
-        setProductImageSrc(product.image_url || getProductFallback(product.category));
+        setProductImageSrc(getProductImage(product));
     }, [product]);
 
     useEffect(() => {

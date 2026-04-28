@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '../utils/format';
-import { getProductFallback } from '../utils/productImage';
+import { getProductFallback, getProductImage } from '../utils/productImage';
 
 export default function ProductCard({ product }) {
     const [imgSrc, setImgSrc] = useState(product.image_url || '');
@@ -10,11 +10,12 @@ export default function ProductCard({ product }) {
         ? Math.round(((product.compare_price - product.price) / product.compare_price) * 100)
         : 0;
 
+    const productImage = getProductImage(product);
     const fallbackImage = getProductFallback(product.category);
 
     useEffect(() => {
-        setImgSrc(product.image_url || fallbackImage);
-    }, [product.id, product.image_url, fallbackImage]);
+        setImgSrc(productImage);
+    }, [product.id, productImage]);
 
     return (
         <Link
