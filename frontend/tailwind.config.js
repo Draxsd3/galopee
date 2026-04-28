@@ -38,4 +38,7 @@ export default {
                 card: '0 1px 2px rgb(0 0 0 / 0.04), 0 4px 16px rgb(0 0 0 / 0.06)',
                 cardHover: '0 4px 20px rgb(0 0 0 / 0.12)',
             },
-    
+        },
+    },
+    plugins: [],
+};

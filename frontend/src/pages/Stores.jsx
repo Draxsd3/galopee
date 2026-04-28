@@ -316,4 +316,5 @@ function FilterChip({ active, onClick, children }) {
         >
             {children}
         </button>
-   
+    );
+}

@@ -509,4 +509,3 @@ function SellerTab({ user, becomeSeller, navigate, setTab }) {
         </div>
     );
 }
-          
