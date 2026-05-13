@@ -1,116 +1,163 @@
-# Galoppe Marketplace
+# MARKETPLACE
 
-Um marketplace multi-vendedor para o agronegócio, inspirado em plataformas como Mercado Livre e TodoAgro. Permite que múltiplos vendedores criem suas lojas, cadastrem produtos e recebam pedidos de compradores cadastrados dentro da plataforma.
+Projeto full stack de marketplace multi-vendedor, criado para demonstrar uma experiência completa de compra, venda e administração em uma plataforma de e-commerce.
+
+O sistema permite que compradores naveguem por produtos e lojas, adicionem itens ao carrinho e finalizem pedidos. Vendedores possuem um painel próprio para gerenciar loja, produtos e vendas. Administradores acompanham métricas gerais, usuários, vendedores e pedidos da plataforma.
+
+## Visão Geral
+
+Este projeto foi desenvolvido como aplicação de portfólio, com foco em arquitetura limpa, separação de responsabilidades e fluxo completo entre frontend, backend e banco de dados.
+
+Principais pontos demonstrados:
+
+- Autenticação com JWT e controle de acesso por perfil.
+- Marketplace com múltiplos vendedores.
+- Catálogo público com busca, categorias e paginação.
+- Carrinho persistente por usuário.
+- Checkout com separação automática de pedidos por vendedor.
+- Painel do vendedor para gestão de produtos, loja e pedidos.
+- Painel administrativo com métricas e listagens globais.
+- API REST estruturada em controllers, services, routes e middlewares.
+- Banco PostgreSQL com schema, seeds e scripts de migração.
+
+## Funcionalidades
+
+### Comprador
+
+- Cadastro e login.
+- Navegação por produtos e lojas.
+- Busca e filtro por categoria.
+- Página de detalhe do produto.
+- Carrinho com adição, remoção e alteração de quantidade.
+- Checkout com endereço de entrega e observações.
+- Histórico de pedidos.
+- Perfil do usuário.
+
+### Vendedor
+
+- Criação automática da loja ao cadastrar uma conta vendedora.
+- Edição de nome, descrição, logo e banner da loja.
+- Cadastro, edição e remoção de produtos.
+- Controle de estoque, preço, SKU, categoria e status ativo.
+- Dashboard com totais de produtos, pedidos e faturamento.
+- Gestão de pedidos recebidos.
+- Atualização de status e código de rastreio.
+
+### Administrador
+
+- Dashboard com métricas globais da plataforma.
+- Listagem de usuários.
+- Listagem de vendedores.
+- Acompanhamento de pedidos.
+- Visão geral de GMV, produtos e operação do marketplace.
 
 ## Stack
 
-- **Frontend:** React 18 + Vite + TailwindCSS + React Router + Axios
-- **Backend:** Node.js + Express + JWT + bcrypt + Zod
-- **Banco:** PostgreSQL (hospedado no Supabase)
+### Frontend
 
-## Estrutura do projeto
+- React 18
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- Lucide React
+- React Hot Toast
 
-```
-Galoppe/
-├── database/
-│   └── schema.sql           # Script completo de criação + seed
+### Backend
+
+- Node.js
+- Express
+- PostgreSQL
+- JWT
+- bcrypt
+- Zod
+- Helmet
+- Morgan
+
+### Banco de Dados
+
+- PostgreSQL
+- Scripts SQL para schema e seed
+- Integração preparada para Supabase
+
+## Arquitetura
+
+```txt
+MARKETPLACE/
 ├── backend/
 │   ├── src/
-│   │   ├── config/          # Conexão com Postgres (pool + transações)
-│   │   ├── controllers/     # Recebem a requisição e validam entrada (Zod)
-│   │   ├── services/        # Regras de negócio puras
-│   │   ├── routes/          # Mapeamento de rotas Express
-│   │   ├── middleware/      # auth (JWT) e error handler
-│   │   ├── utils/
-│   │   └── app.js
-│   ├── scripts/             # migrate.js e generate-hash.js
-│   ├── server.js
-│   ├── package.json
-│   └── .env
-└── frontend/
-    ├── src/
-    │   ├── components/      # Navbar, Footer, ProductCard, ProtectedRoute
-    │   ├── contexts/        # AuthContext, CartContext
-    │   ├── pages/           # Home, ProductDetail, Login, Cart, Checkout...
-    │   ├── pages/seller/    # Painel do vendedor
-    │   ├── pages/admin/     # Painel administrativo
-    │   ├── services/api.js  # Axios + interceptor JWT
-    │   └── utils/
-    ├── vite.config.js
-    ├── tailwind.config.js
-    └── package.json
+│   │   ├── config/          # Conexão com o banco de dados
+│   │   ├── controllers/     # Entrada das requisições HTTP
+│   │   ├── middleware/      # Autenticação e tratamento de erros
+│   │   ├── routes/          # Rotas da API
+│   │   ├── services/        # Regras de negócio
+│   │   └── utils/           # Funções auxiliares
+│   ├── scripts/             # Migração, seed e utilitários
+│   └── server.js
+├── database/
+│   ├── schema.sql
+│   ├── schema_tables.sql
+│   └── seed_data.sql
+├── frontend/
+│   ├── src/
+│   │   ├── components/      # Componentes reutilizáveis
+│   │   ├── contexts/        # Contextos de autenticação e carrinho
+│   │   ├── pages/           # Telas públicas e privadas
+│   │   ├── services/        # Cliente HTTP
+│   │   └── utils/           # Formatadores e helpers
+│   └── public/
+└── vercel.json
 ```
 
-## Funcionalidades implementadas
+## Modelagem Principal
 
-### Autenticação
-- Cadastro e login com JWT
-- Três papéis: `buyer`, `seller`, `admin`
-- Endpoint `GET /auth/me` para rehidratar a sessão
+O projeto trabalha com três papéis de usuário:
 
-### Vendedores
-- Ao se cadastrar como vendedor, a loja é criada automaticamente (com slug único)
-- Edição dos dados da loja (nome, descrição, logo, banner)
-- Listagem pública de lojas
+- `buyer`: comprador.
+- `seller`: vendedor.
+- `admin`: administrador.
 
-### Produtos
-- CRUD completo, restrito ao vendedor dono
-- Campos: nome, descrição, preço, imagem, estoque, categoria, SKU, ativo
-- Listagem pública com busca, filtros de categoria e paginação
+Fluxo principal:
 
-### Carrinho
-- Um carrinho por usuário comprador
-- Adicionar, atualizar quantidade, remover e limpar
+1. O vendedor cria uma conta e recebe uma loja automaticamente.
+2. O vendedor cadastra produtos vinculados à própria loja.
+3. O comprador navega pelo catálogo e adiciona produtos ao carrinho.
+4. Ao finalizar a compra, o backend separa o carrinho em pedidos por vendedor.
+5. Cada vendedor acompanha e atualiza apenas os próprios pedidos.
+6. O administrador acompanha a operação geral da plataforma.
 
-### Pedidos
-- Ao finalizar a compra, o carrinho é particionado **por vendedor**: um pedido por loja
-- Estoque é debitado dentro de uma transação
-- Status do pedido: `pending → paid → shipped → delivered` (ou `cancelled`)
-- Status de pagamento separado, preparado para gateway futuro
-- Campos `payment_provider`, `payment_reference` e `tracking_code` já existem no schema
+## API REST
 
-### Painel do vendedor
-- Dashboard com totais (produtos, pedidos, faturamento)
-- CRUD de produtos
-- Visualização dos pedidos recebidos com atualização de status e código de rastreio
+Principais grupos de rotas:
 
-### Painel administrativo
-- Métricas globais (usuários, vendedores, produtos, GMV)
-- Listagem de usuários, vendedores e pedidos
+```txt
+/api/auth       # Cadastro, login e sessão
+/api/products   # Catálogo e CRUD de produtos
+/api/sellers    # Lojas e dados do vendedor
+/api/cart       # Carrinho do comprador
+/api/orders     # Pedidos de compra e venda
+/api/admin      # Métricas e gestão administrativa
+```
 
-## Instalação e execução local
+## Como Executar Localmente
 
-### 1. Banco de dados (Supabase / PostgreSQL)
-
-O projeto já vem configurado para conectar no Supabase através da variável `DATABASE_URL` em `backend/.env`.
-
-**Para criar as tabelas e dados de exemplo**, execute o script:
+### 1. Backend
 
 ```bash
 cd backend
 npm install
 npm run db:migrate
+npm run db:seed
+npm run dev
 ```
 
-Alternativamente, rode manualmente o `database/schema.sql` no SQL Editor do Supabase.
+A API será executada em:
 
-### 2. Backend
-
-```bash
-cd backend
-npm install
-npm run dev        # usa nodemon
-# ou
-npm start
+```txt
+http://localhost:4000
 ```
 
-A API sobe em `http://localhost:4000`. Teste com:
-
-```bash
-curl http://localhost:4000/api/health
-```
-
-### 3. Frontend
+### 2. Frontend
 
 Em outro terminal:
 
@@ -120,99 +167,61 @@ npm install
 npm run dev
 ```
 
-A UI sobe em `http://localhost:5173`.
+A interface será executada em:
 
-### 4. Seed de empresas de teste
+```txt
+http://localhost:5173
+```
 
-Para criar ou atualizar 5 empresas de teste com produtos no catalogo:
+## Variáveis de Ambiente
+
+Crie um arquivo `.env` dentro da pasta `backend` com as variáveis necessárias para conexão com o banco e autenticação:
+
+```env
+DATABASE_URL=postgresql://usuario:senha@host:porta/database
+JWT_SECRET=sua_chave_secreta
+PORT=4000
+```
+
+## Scripts Úteis
+
+### Backend
 
 ```bash
-cd backend
+npm run dev
+npm start
+npm run db:migrate
 npm run db:seed
+npm run db:update-images
 ```
 
-O seed e idempotente e todos os usuarios criados por ele usam a senha **`senha123`**.
+### Frontend
 
-## Usuários de teste (seed)
-
-Todos os usuários criados pelo seed usam a senha **`senha123`**:
-
-| E-mail                 | Papel   |
-|------------------------|---------|
-| `admin@galoppe.com`    | admin   |
-| `joao@email.com`       | buyer   |
-| `maria@email.com`      | buyer   |
-| `contato@fazendadovale.com` | seller  |
-| `contato@agroloja.com` | seller  |
-| `campo.norte@teste.com` | seller |
-| `terra.viva@teste.com` | seller |
-| `horizonte@teste.com` | seller |
-| `pivo.certo@teste.com` | seller |
-| `raiz.forte@teste.com` | seller |
-
-> Para regerar o hash de uma senha: `node scripts/generate-hash.js novasenha` e cole o hash no `schema.sql`.
-
-## API REST - principais endpoints
-
-```
-POST   /api/auth/register            { name, email, password, role, storeName? }
-POST   /api/auth/login               { email, password }
-GET    /api/auth/me                  (auth)
-
-GET    /api/products                 ?search=&category=&sellerId=&limit=&offset=
-GET    /api/products/:id
-GET    /api/products/mine            (seller)
-POST   /api/products                 (seller)
-PUT    /api/products/:id             (seller, owner)
-DELETE /api/products/:id             (seller, owner)
-
-GET    /api/sellers
-GET    /api/sellers/:slug
-GET    /api/sellers/me               (seller)
-PUT    /api/sellers/me               (seller)
-
-GET    /api/cart                     (buyer)
-POST   /api/cart/items               (buyer)  { product_id, quantity }
-PUT    /api/cart/items/:itemId       (buyer)  { quantity }
-DELETE /api/cart/items/:itemId       (buyer)
-DELETE /api/cart                     (buyer)
-
-POST   /api/orders                   (buyer)  { shipping_address, notes }
-GET    /api/orders/mine              (buyer)
-GET    /api/orders/sales             (seller)
-GET    /api/orders/:id               (owner)
-PATCH  /api/orders/:id/status        (seller, owner)
-
-GET    /api/admin/metrics            (admin)
-GET    /api/admin/users              (admin)
-GET    /api/admin/sellers            (admin)
-GET    /api/admin/orders             (admin)
+```bash
+npm run dev
+npm run build
+npm run preview
 ```
 
-## Preparação para gateway de pagamento
+## Destaques Técnicos
 
-O schema da tabela `orders` já contém:
+- Separação entre camada HTTP e regras de negócio.
+- Validação de entrada com Zod.
+- Middleware de autenticação baseado em JWT.
+- Proteção de rotas por perfil no frontend.
+- Context API para autenticação e carrinho.
+- Transações no banco ao criar pedidos e debitar estoque.
+- Estrutura preparada para integração futura com gateway de pagamento.
 
-- `payment_status` (pending, processing, approved, refused, refunded)
-- `payment_provider` (ex.: `mercadopago`, `stripe`, `pagseguro`)
-- `payment_reference` (ID da transação no gateway)
+## Próximas Melhorias
 
-Para integrar um gateway basta criar um novo `paymentService`, emitir a cobrança após `orderService.createFromCart`, guardar o `payment_reference` retornado e registrar um webhook que chame `orderService.updateStatus` ao aprovar o pagamento.
-
-## Próximos passos sugeridos
-
-- Upload real de imagens (S3 / Supabase Storage) em vez de URL manual
-- Refresh tokens + logout server-side
-- Avaliações e comentários em produtos e vendedores
-- Favoritos / wishlist
-- Integração Mercado Pago / Stripe
-- Notificações por e-mail (pedido criado, enviado, entregue)
-- Testes automatizados (Vitest no frontend / Jest no backend)
-
-## Segurança — importante
-
-A string de conexão do Supabase foi fornecida na primeira mensagem do chat. Como a senha ficou exposta, recomenda-se **rotacioná-la no painel do Supabase** (Project Settings → Database → Reset database password) e atualizar `backend/.env`.
+- Integração com gateway de pagamento.
+- Upload real de imagens com storage externo.
+- Avaliações de produtos e vendedores.
+- Favoritos e lista de desejos.
+- Notificações por e-mail.
+- Testes automatizados no frontend e backend.
 
 ---
 
-Feito com ♥ para rodar — boa construção!
+Projeto desenvolvido para portfólio, demonstrando um marketplace completo com área pública, painel do vendedor, painel administrativo, API REST e persistência em banco relacional.
